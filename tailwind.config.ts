@@ -31,7 +31,7 @@ const config: Config = {
       animation: {
         "fade-up": "fadeUp 1s ease-out forwards",
         shimmer: "shimmer 3s ease-in-out infinite",
-        pulse-glow: "pulseGlow 2s ease-in-out infinite",
+        "pulse-glow": "pulseGlow 2s ease-in-out infinite",
       },
       keyframes: {
         fadeUp: {
