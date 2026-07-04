@@ -1,20 +1,26 @@
 "use client";
 
+import { useRef, useState } from "react";
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
 import Reveal from "./Reveal";
+import GalleryLightbox from "./GalleryLightbox";
+import type { GalleryImage } from "@/lib/cms/types";
 
-const galleryImages = [
-  { src: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&q=80", alt: "Biryani dish", span: "col-span-2 row-span-1 md:col-span-2 md:row-span-2" },
-  { src: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80", alt: "Indian curry", span: "col-span-1 row-span-1" },
-  { src: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=600&q=80", alt: "Naan bread", span: "col-span-1 row-span-1" },
-  { src: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=600&q=80", alt: "Tandoori chicken", span: "col-span-1 row-span-1 md:row-span-2" },
-  { src: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=600&q=80", alt: "Spices", span: "col-span-1 row-span-1" },
-  { src: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80", alt: "Gourmet plating", span: "col-span-2 row-span-1" },
-];
+interface GalleryProps {
+  images: GalleryImage[];
+}
 
-function GalleryItem({ image, index }: { image: (typeof galleryImages)[0]; index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
+function GalleryItem({
+  image,
+  index,
+  onOpen,
+}: {
+  image: GalleryImage;
+  index: number;
+  onOpen: (index: number) => void;
+}) {
+  const ref = useRef<HTMLButtonElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
@@ -24,27 +30,34 @@ function GalleryItem({ image, index }: { image: (typeof galleryImages)[0]; index
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.6, 1, 1, 0.6]);
 
   return (
-    <motion.div
+    <motion.button
       ref={ref}
+      type="button"
       style={{ scale, opacity }}
-      className={`${image.span} group relative min-h-[160px] overflow-hidden rounded-sm md:min-h-0 md:rounded-none`}
+      onClick={() => onOpen(index)}
+      className={`${image.span} group relative min-h-[160px] overflow-hidden rounded-sm text-left md:min-h-0 md:rounded-none`}
+      aria-label={`View ${image.alt}`}
     >
-      <img
+      <Image
         src={image.src}
         alt={image.alt}
-        className="h-full w-full object-cover transition-transform duration-700 md:group-hover:scale-105"
+        fill
+        className="object-cover transition-transform duration-700 md:group-hover:scale-105"
+        sizes="(max-width: 768px) 50vw, 25vw"
       />
       <div className="absolute inset-0 bg-sindhu-charcoal/0 transition-colors duration-500 md:group-hover:bg-sindhu-charcoal/30" />
-      <div className="absolute inset-0 hidden items-center justify-center opacity-0 transition-opacity duration-500 md:flex md:group-hover:opacity-100">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full border border-sindhu-gold/50">
-          <span className="text-lg text-sindhu-gold">+</span>
+      <div className="absolute inset-0 flex items-center justify-center bg-sindhu-charcoal/20 opacity-100 md:bg-transparent md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-500">
+        <div className="flex h-10 w-10 items-center justify-center rounded-full border border-sindhu-gold/50 md:h-12 md:w-12">
+          <span className="text-base text-sindhu-gold md:text-lg">+</span>
         </div>
       </div>
-    </motion.div>
+    </motion.button>
   );
 }
 
-export default function Gallery() {
+export default function Gallery({ images }: GalleryProps) {
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
   return (
     <section id="gallery" className="section-padding relative">
       <div className="mx-auto max-w-7xl">
@@ -60,11 +73,23 @@ export default function Gallery() {
         </div>
 
         <div className="grid auto-rows-[minmax(160px,1fr)] grid-cols-2 gap-2 sm:gap-3 md:auto-rows-[250px] md:grid-cols-4 md:gap-4">
-          {galleryImages.map((image, i) => (
-            <GalleryItem key={image.alt} image={image} index={i} />
+          {images.map((image, i) => (
+            <GalleryItem
+              key={image.id}
+              image={image}
+              index={i}
+              onOpen={setLightboxIndex}
+            />
           ))}
         </div>
       </div>
+
+      <GalleryLightbox
+        images={images}
+        activeIndex={lightboxIndex}
+        onClose={() => setLightboxIndex(null)}
+        onNavigate={setLightboxIndex}
+      />
     </section>
   );
 }

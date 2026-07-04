@@ -1,0 +1,187 @@
+{
+  "categories": [
+    {
+      "id": "starters",
+      "title": "Starters",
+      "subtitle": "Awaken Your Palate",
+      "items": [
+        {
+          "id": "tandoori-prawns",
+          "name": "Tandoori Prawns",
+          "description": "Charred tiger prawns with mint chutney",
+          "price": 18,
+          "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80",
+          "tags": ["bestseller"],
+          "orderable": true
+        },
+        {
+          "id": "paneer-tikka",
+          "name": "Paneer Tikka",
+          "description": "Smoky cottage cheese with bell peppers",
+          "price": 14,
+          "image": "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=600&q=80",
+          "tags": ["vegetarian"],
+          "orderable": true
+        },
+        {
+          "id": "samosa-chaat",
+          "name": "Samosa Chaat",
+          "description": "Crispy pastry with tamarind & yogurt",
+          "price": 12,
+          "tags": ["vegetarian", "spicy"],
+          "orderable": true
+        },
+        {
+          "id": "chicken-65",
+          "name": "Chicken 65",
+          "description": "Crispy spiced chicken with curry leaves",
+          "price": 16,
+          "tags": ["spicy", "bestseller"],
+          "orderable": true
+        }
+      ]
+    },
+    {
+      "id": "mains",
+      "title": "Mains",
+      "subtitle": "The Heart of Sindhu",
+      "items": [
+        {
+          "id": "butter-chicken",
+          "name": "Butter Chicken",
+          "description": "Creamy tomato curry, aged basmati rice",
+          "price": 26,
+          "image": "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&q=80",
+          "tags": ["bestseller"],
+          "orderable": true
+        },
+        {
+          "id": "lamb-rogan-josh",
+          "name": "Lamb Rogan Josh",
+          "description": "Kashmiri spices, slow-braised lamb",
+          "price": 32,
+          "tags": ["spicy"],
+          "orderable": true
+        },
+        {
+          "id": "palak-paneer",
+          "name": "Palak Paneer",
+          "description": "Spinach gravy with house-made paneer",
+          "price": 22,
+          "tags": ["vegetarian"],
+          "orderable": true
+        },
+        {
+          "id": "biryani-royale",
+          "name": "Biryani Royale",
+          "description": "Saffron-infused rice with tender lamb",
+          "price": 28,
+          "image": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=600&q=80",
+          "tags": ["bestseller"],
+          "orderable": true
+        },
+        {
+          "id": "dal-makhani",
+          "name": "Dal Makhani",
+          "description": "Slow-cooked black lentils in cream & butter",
+          "price": 18,
+          "tags": ["vegetarian"],
+          "orderable": true
+        }
+      ]
+    },
+    {
+      "id": "breads",
+      "title": "Breads",
+      "subtitle": "From Our Tandoor",
+      "items": [
+        {
+          "id": "garlic-naan",
+          "name": "Garlic Naan",
+          "description": "Soft leavened bread with garlic & butter",
+          "price": 5,
+          "tags": ["vegetarian"],
+          "orderable": true
+        },
+        {
+          "id": "butter-naan",
+          "name": "Butter Naan",
+          "description": "Classic tandoor-baked flatbread",
+          "price": 4,
+          "tags": ["vegetarian"],
+          "orderable": true
+        },
+        {
+          "id": "cheese-naan",
+          "name": "Cheese Naan",
+          "description": "Stuffed with melted cheese",
+          "price": 6,
+          "tags": ["vegetarian"],
+          "orderable": true
+        }
+      ]
+    },
+    {
+      "id": "desserts",
+      "title": "Desserts",
+      "subtitle": "Sweet Endings",
+      "items": [
+        {
+          "id": "gulab-jamun",
+          "name": "Gulab Jamun",
+          "description": "Warm milk dumplings in rose syrup",
+          "price": 10,
+          "tags": ["vegetarian"],
+          "orderable": true
+        },
+        {
+          "id": "kulfi-falooda",
+          "name": "Kulfi Falooda",
+          "description": "Traditional ice cream with vermicelli",
+          "price": 12,
+          "tags": ["vegetarian"],
+          "orderable": true
+        },
+        {
+          "id": "rasmalai",
+          "name": "Rasmalai",
+          "description": "Soft cheese patties in cardamom milk",
+          "price": 11,
+          "tags": ["vegetarian"],
+          "orderable": true
+        }
+      ]
+    },
+    {
+      "id": "beverages",
+      "title": "Beverages",
+      "subtitle": "Refresh & Revive",
+      "items": [
+        {
+          "id": "mango-lassi",
+          "name": "Mango Lassi",
+          "description": "Creamy yogurt drink with Alphonso mango",
+          "price": 7,
+          "tags": ["vegetarian"],
+          "orderable": true
+        },
+        {
+          "id": "masala-chai",
+          "name": "Masala Chai",
+          "description": "Spiced tea brewed with aromatic spices",
+          "price": 5,
+          "tags": ["vegetarian"],
+          "orderable": true
+        },
+        {
+          "id": "nimbu-pani",
+          "name": "Nimbu Pani",
+          "description": "Fresh lime water with cumin & mint",
+          "price": 6,
+          "tags": ["vegetarian"],
+          "orderable": true
+        }
+      ]
+    }
+  ]
+}

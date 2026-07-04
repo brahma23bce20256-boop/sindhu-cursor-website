@@ -2,8 +2,13 @@
 
 import Reveal from "./Reveal";
 import ParallaxImage from "./ParallaxImage";
+import type { SiteSettings } from "@/lib/cms/types";
 
-export default function About() {
+interface AboutProps {
+  stats: SiteSettings["stats"];
+}
+
+export default function About({ stats }: AboutProps) {
   return (
     <section id="about" className="section-padding relative overflow-hidden">
       <div className="mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-2">
@@ -21,7 +26,7 @@ export default function About() {
           </Reveal>
           <Reveal delay={0.2}>
             <div className="mt-6 w-fit glass-card p-6 md:absolute md:-bottom-8 md:-right-8 md:mt-0 md:p-8">
-              <p className="font-display text-3xl font-light text-sindhu-gold md:text-4xl">15+</p>
+              <p className="font-display text-3xl font-light text-sindhu-gold md:text-4xl">{stats.years}</p>
               <p className="mt-1 text-[10px] tracking-widest text-sindhu-cream/60">YEARS OF EXCELLENCE</p>
             </div>
           </Reveal>
@@ -58,9 +63,9 @@ export default function About() {
           <Reveal delay={0.5}>
             <div className="grid grid-cols-3 gap-4 border-t border-white/10 pt-6 sm:gap-8 sm:pt-8">
               {[
-                { number: "50+", label: "Signature Dishes" },
-                { number: "4.9", label: "Guest Rating" },
-                { number: "3", label: "Award Wins" },
+                { number: stats.dishes, label: "Signature Dishes" },
+                { number: stats.rating, label: "Guest Rating" },
+                { number: stats.awards, label: "Award Wins" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center sm:text-left">
                   <p className="font-display text-2xl font-light text-sindhu-gold sm:text-3xl">{stat.number}</p>

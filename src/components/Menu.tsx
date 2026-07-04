@@ -1,39 +1,15 @@
 "use client";
 
+import Link from "next/link";
 import Reveal from "./Reveal";
+import type { MenuCategory } from "@/lib/cms/types";
+import { formatPrice } from "@/lib/cms/types";
 
-const menuCategories = [
-  {
-    title: "Starters",
-    subtitle: "Awaken Your Palate",
-    items: [
-      { name: "Tandoori Prawns", description: "Charred tiger prawns with mint chutney", price: "$18" },
-      { name: "Paneer Tikka", description: "Smoky cottage cheese with bell peppers", price: "$14" },
-      { name: "Samosa Chaat", description: "Crispy pastry with tamarind & yogurt", price: "$12" },
-    ],
-  },
-  {
-    title: "Mains",
-    subtitle: "The Heart of Sindhu",
-    items: [
-      { name: "Butter Chicken", description: "Creamy tomato curry, aged basmati rice", price: "$26" },
-      { name: "Lamb Rogan Josh", description: "Kashmiri spices, slow-braised lamb", price: "$32" },
-      { name: "Palak Paneer", description: "Spinach gravy with house-made paneer", price: "$22" },
-      { name: "Biryani Royale", description: "Saffron-infused rice with tender lamb", price: "$28" },
-    ],
-  },
-  {
-    title: "Desserts",
-    subtitle: "Sweet Endings",
-    items: [
-      { name: "Gulab Jamun", description: "Warm milk dumplings in rose syrup", price: "$10" },
-      { name: "Kulfi Falooda", description: "Traditional ice cream with vermicelli", price: "$12" },
-      { name: "Rasmalai", description: "Soft cheese patties in cardamom milk", price: "$11" },
-    ],
-  },
-];
+interface MenuProps {
+  categories: MenuCategory[];
+}
 
-export default function Menu() {
+export default function Menu({ categories }: MenuProps) {
   return (
     <section id="menu" className="section-padding relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-sindhu-smoke/50 to-transparent" />
@@ -57,8 +33,8 @@ export default function Menu() {
         </div>
 
         <div className="grid gap-12 md:gap-24">
-          {menuCategories.map((category, catIndex) => (
-            <div key={category.title}>
+          {categories.map((category, catIndex) => (
+            <div key={category.id}>
               <Reveal delay={catIndex * 0.1}>
                 <div className="mb-8 flex items-end justify-between border-b border-white/10 pb-4 md:mb-10 md:pb-6">
                   <div className="min-w-0 flex-1 pr-4">
@@ -75,20 +51,26 @@ export default function Menu() {
 
               <div className="grid gap-1">
                 {category.items.map((item, itemIndex) => (
-                  <Reveal key={item.name} delay={itemIndex * 0.05}>
+                  <Reveal key={item.id} delay={itemIndex * 0.05}>
                     <div className="group flex flex-col gap-1 border-b border-white/5 py-5 transition-colors active:border-sindhu-gold/20 md:flex-row md:items-center md:justify-between md:gap-0 md:py-6 md:hover:border-sindhu-gold/20">
-                      <div className="flex-1 min-w-0">
+                      <div className="min-w-0 flex-1">
                         <div className="flex items-start justify-between gap-3 md:block">
                           <h4 className="font-display text-lg font-light text-sindhu-cream md:text-2xl md:transition-colors md:group-hover:text-sindhu-gold">
                             {item.name}
                           </h4>
-                          <span className="shrink-0 font-display text-base text-sindhu-gold md:hidden">{item.price}</span>
+                          <span className="shrink-0 font-display text-base text-sindhu-gold md:hidden">
+                            {formatPrice(item.price)}
+                          </span>
                         </div>
-                        <p className="mt-1 text-sm font-light leading-relaxed text-sindhu-cream/40">{item.description}</p>
+                        <p className="mt-1 text-sm font-light leading-relaxed text-sindhu-cream/40">
+                          {item.description}
+                        </p>
                       </div>
                       <div className="ml-0 hidden items-center gap-4 md:ml-8 md:flex">
                         <div className="hidden h-px w-12 bg-sindhu-gold/20 transition-all group-hover:w-20 group-hover:bg-sindhu-gold/40 sm:block" />
-                        <span className="font-display text-lg text-sindhu-gold">{item.price}</span>
+                        <span className="font-display text-lg text-sindhu-gold">
+                          {formatPrice(item.price)}
+                        </span>
                       </div>
                     </div>
                   </Reveal>
@@ -99,13 +81,19 @@ export default function Menu() {
         </div>
 
         <Reveal>
-          <div className="mt-20 text-center">
-            <a
-              href="#reserve"
+          <div className="mt-12 flex flex-col gap-3 sm:mt-20 sm:flex-row sm:justify-center">
+            <Link
+              href="/menu"
               className="inline-block w-full border border-sindhu-gold/30 px-10 py-4 text-center text-xs tracking-widest text-sindhu-gold transition-all active:bg-sindhu-gold active:text-sindhu-charcoal sm:w-auto md:hover:bg-sindhu-gold md:hover:text-sindhu-charcoal"
             >
               VIEW FULL MENU
-            </a>
+            </Link>
+            <Link
+              href="/order"
+              className="inline-block w-full bg-sindhu-gold px-10 py-4 text-center text-xs font-medium tracking-widest text-sindhu-charcoal active:bg-sindhu-gold-light sm:w-auto md:hover:bg-sindhu-gold-light"
+            >
+              ORDER ONLINE
+            </Link>
           </div>
         </Reveal>
       </div>

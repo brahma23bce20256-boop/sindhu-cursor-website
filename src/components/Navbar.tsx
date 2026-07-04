@@ -1,18 +1,27 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
-const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Menu", href: "#menu" },
-  { label: "Experience", href: "#experience" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "Reserve", href: "#reserve" },
+const homeLinks = [
+  { label: "About", href: "/#about" },
+  { label: "Menu", href: "/menu" },
+  { label: "Experience", href: "/#experience" },
+  { label: "Gallery", href: "/#gallery" },
+  { label: "Reserve", href: "/#reserve" },
+];
+
+const mobileLinks = [
+  ...homeLinks,
+  { label: "Order", href: "/order" },
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -29,7 +38,17 @@ export default function Navbar() {
     };
   }, [mobileOpen]);
 
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
   const closeMobileMenu = () => setMobileOpen(false);
+
+  const resolveHref = (href: string) => {
+    if (href.startsWith("/#") && !isHome) return href;
+    if (href.startsWith("/#")) return href.slice(1);
+    return href;
+  };
 
   return (
     <>
@@ -38,38 +57,44 @@ export default function Navbar() {
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled || mobileOpen
+          scrolled || mobileOpen || !isHome
             ? "bg-sindhu-charcoal/90 backdrop-blur-xl border-b border-white/5 py-3 md:py-4"
             : "bg-transparent py-4 md:py-8"
         }`}
         style={{ paddingTop: "max(1rem, env(safe-area-inset-top))" }}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 md:px-12">
-          <a href="#" className="group flex min-w-0 items-center gap-2 sm:gap-3">
+          <Link href="/" className="group flex min-w-0 items-center gap-2 sm:gap-3">
             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-sindhu-gold/40 transition-colors group-hover:border-sindhu-gold sm:h-10 sm:w-10">
               <span className="font-display text-base font-semibold text-sindhu-gold sm:text-lg">S</span>
             </div>
             <span className="truncate font-display text-xl font-light tracking-[0.15em] text-sindhu-cream sm:text-2xl sm:tracking-[0.2em]">
               SINDHU
             </span>
-          </a>
+          </Link>
 
-          <div className="hidden items-center gap-10 md:flex">
-            {navLinks.map((link) => (
-              <a
+          <div className="hidden items-center gap-8 lg:gap-10 md:flex">
+            {homeLinks.map((link) => (
+              <Link
                 key={link.href}
-                href={link.href}
+                href={resolveHref(link.href)}
                 className="relative text-sm font-light tracking-widest text-sindhu-cream/70 transition-colors hover:text-sindhu-gold after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-sindhu-gold after:transition-all hover:after:w-full"
               >
                 {link.label.toUpperCase()}
-              </a>
+              </Link>
             ))}
-            <a
-              href="#reserve"
+            <Link
+              href="/order"
+              className="text-sm font-light tracking-widest text-sindhu-cream/70 transition-colors hover:text-sindhu-gold"
+            >
+              ORDER
+            </Link>
+            <Link
+              href={isHome ? "#reserve" : "/#reserve"}
               className="border border-sindhu-gold/50 px-6 py-2.5 text-xs font-medium tracking-widest text-sindhu-gold transition-all hover:bg-sindhu-gold hover:text-sindhu-charcoal"
             >
               BOOK A TABLE
-            </a>
+            </Link>
           </div>
 
           <button
@@ -96,30 +121,38 @@ export default function Navbar() {
               paddingBottom: "max(2rem, env(safe-area-inset-bottom))",
             }}
           >
-            <div className="flex flex-1 flex-col items-center justify-center gap-2 px-6">
-              {navLinks.map((link, i) => (
-                <motion.a
+            <div className="flex flex-1 flex-col items-center justify-center gap-1 px-6">
+              {mobileLinks.map((link, i) => (
+                <motion.div
                   key={link.href}
-                  href={link.href}
-                  onClick={closeMobileMenu}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.08 }}
-                  className="flex w-full max-w-xs items-center justify-center py-4 font-display text-2xl font-light tracking-widest text-sindhu-cream active:text-sindhu-gold"
+                  transition={{ delay: i * 0.06 }}
+                  className="w-full max-w-xs"
                 >
-                  {link.label}
-                </motion.a>
+                  <Link
+                    href={resolveHref(link.href)}
+                    onClick={closeMobileMenu}
+                    className="flex min-h-[48px] items-center justify-center font-display text-2xl font-light tracking-widest text-sindhu-cream active:text-sindhu-gold"
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
               ))}
-              <motion.a
-                href="#reserve"
-                onClick={closeMobileMenu}
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: navLinks.length * 0.08 }}
-                className="mt-6 w-full max-w-xs bg-sindhu-gold py-4 text-center text-xs font-medium tracking-widest text-sindhu-charcoal"
+                transition={{ delay: mobileLinks.length * 0.06 }}
+                className="mt-4 w-full max-w-xs"
               >
-                BOOK A TABLE
-              </motion.a>
+                <Link
+                  href={isHome ? "#reserve" : "/#reserve"}
+                  onClick={closeMobileMenu}
+                  className="flex min-h-[48px] items-center justify-center bg-sindhu-gold text-xs font-medium tracking-widest text-sindhu-charcoal"
+                >
+                  BOOK A TABLE
+                </Link>
+              </motion.div>
             </div>
           </motion.div>
         )}

@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Outfit } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
+import { CartProvider } from "@/context/CartContext";
+import { getSiteSettings } from "@/lib/cms";
+import { buildMetadata, buildRestaurantJsonLd } from "@/lib/seo";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -17,12 +20,10 @@ const outfit = Outfit({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Sindhu | Fine Dining Restaurant",
-  description:
-    "Experience the art of Indian cuisine at Sindhu — where tradition meets innovation in an atmosphere of refined elegance.",
-  keywords: ["restaurant", "fine dining", "Indian cuisine", "Sindhu"],
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await getSiteSettings();
+  return buildMetadata(site);
+}
 
 export const viewport = {
   width: "device-width",
@@ -30,15 +31,26 @@ export const viewport = {
   viewportFit: "cover",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const site = await getSiteSettings();
+  const jsonLd = buildRestaurantJsonLd(site);
+
   return (
     <html lang="en" className={`${cormorant.variable} ${outfit.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="font-body grain">
-        <SmoothScroll>{children}</SmoothScroll>
+        <CartProvider>
+          <SmoothScroll>{children}</SmoothScroll>
+        </CartProvider>
       </body>
     </html>
   );

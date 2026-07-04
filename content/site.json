@@ -1,0 +1,35 @@
+{
+  "name": "Sindhu",
+  "tagline": "Fine Dining · Indian Cuisine",
+  "description": "Experience the art of Indian cuisine at Sindhu — where tradition meets innovation in an atmosphere of refined elegance.",
+  "url": "https://sindhu-restaurant.com",
+  "contact": {
+    "address": "123 Culinary Avenue, Downtown District",
+    "phone": "+1 (555) 234-5678",
+    "phoneHref": "tel:+15552345678",
+    "email": "reservations@sindhu.com",
+    "reservationEmail": "reservations@sindhu.com",
+    "orderEmail": "orders@sindhu.com"
+  },
+  "hours": {
+    "weekday": { "days": "Tuesday – Thursday", "time": "5:00 PM – 10:00 PM" },
+    "weekend": { "days": "Friday – Sunday", "time": "5:00 PM – 11:00 PM" },
+    "closed": "Monday",
+    "reservation": "Tue–Sun: 5:00 PM – 11:00 PM"
+  },
+  "social": {
+    "instagram": "https://instagram.com/sindhu",
+    "facebook": "https://facebook.com/sindhu",
+    "twitter": "https://twitter.com/sindhu"
+  },
+  "maps": {
+    "embedUrl": "https://maps.google.com/maps?q=Times+Square+New+York&output=embed",
+    "directionsUrl": "https://maps.google.com/?q=123+Culinary+Avenue+Downtown+District"
+  },
+  "stats": {
+    "years": "15+",
+    "dishes": "50+",
+    "rating": "4.9",
+    "awards": "3"
+  }
+}

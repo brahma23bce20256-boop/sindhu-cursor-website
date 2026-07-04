@@ -1,0 +1,46 @@
+{
+  "images": [
+    {
+      "id": "biryani",
+      "src": "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=1200&q=80",
+      "alt": "Biryani dish",
+      "caption": "Biryani Royale — saffron-infused perfection",
+      "span": "col-span-2 row-span-1 md:col-span-2 md:row-span-2"
+    },
+    {
+      "id": "curry",
+      "src": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=1200&q=80",
+      "alt": "Indian curry",
+      "caption": "Rich, aromatic curries",
+      "span": "col-span-1 row-span-1"
+    },
+    {
+      "id": "naan",
+      "src": "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=1200&q=80",
+      "alt": "Naan bread",
+      "caption": "Fresh from the tandoor",
+      "span": "col-span-1 row-span-1"
+    },
+    {
+      "id": "tandoori",
+      "src": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=1200&q=80",
+      "alt": "Tandoori chicken",
+      "caption": "Tandoori specialties",
+      "span": "col-span-1 row-span-1 md:row-span-2"
+    },
+    {
+      "id": "spices",
+      "src": "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=1200&q=80",
+      "alt": "Spices",
+      "caption": "Authentic spices from the subcontinent",
+      "span": "col-span-1 row-span-1"
+    },
+    {
+      "id": "plating",
+      "src": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&q=80",
+      "alt": "Gourmet plating",
+      "caption": "Artful presentation",
+      "span": "col-span-2 row-span-1"
+    }
+  ]
+}
