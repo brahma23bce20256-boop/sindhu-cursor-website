@@ -10,6 +10,16 @@ const config: Config = {
     extend: {
       colors: {
         sindhu: {
+          // New soft palette
+          bg: "#FDFBF7",
+          "bg-alt": "#FAFAFA",
+          terracotta: "#D9734E",
+          saffron: "#E07A5F",
+          sage: "#81B29A",
+          text: "#2F2E2C",
+          "text-light": "#3D405B",
+          border: "#E2DCD0",
+          // Old palette
           gold: "#F4A825",
           "gold-light": "#FFD56B",
           "gold-dark": "#C47F0A",
@@ -17,7 +27,6 @@ const config: Config = {
           charcoal: "#1A120E",
           smoke: "#2A1F18",
           ember: "#C0392B",
-          saffron: "#E8940A",
           spice: "#D35400",
           maroon: "#7B241C",
           rice: "#F5E6C8",
