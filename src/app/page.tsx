@@ -21,12 +21,12 @@ function MarqueeBanner() {
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
 
   return (
-    <div ref={ref} className="overflow-hidden border-y border-white/5 bg-sindhu-smoke py-6">
+    <div ref={ref} className="overflow-hidden border-y border-white/5 bg-sindhu-smoke py-4 md:py-6">
       <motion.div style={{ x }} className="flex whitespace-nowrap">
         {Array.from({ length: 4 }).map((_, i) => (
           <span
             key={i}
-            className="mx-8 font-display text-3xl font-light tracking-[0.3em] text-sindhu-gold/20 md:text-5xl"
+            className="mx-4 font-display text-xl font-light tracking-[0.2em] text-sindhu-gold/20 sm:mx-8 sm:text-3xl sm:tracking-[0.3em] md:text-5xl"
           >
             {text}
           </span>
@@ -53,7 +53,7 @@ function Testimonials() {
   return (
     <section className="section-padding relative">
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-12 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2 md:gap-12">
           {testimonials.map((t, i) => (
             <motion.div
               key={t.author}
@@ -61,10 +61,10 @@ function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: i * 0.2 }}
-              className="glass-card p-10"
+              className="glass-card p-6 sm:p-8 md:p-10"
             >
-              <div className="mb-6 font-display text-5xl text-sindhu-gold/30">&ldquo;</div>
-              <p className="font-display text-xl font-light italic leading-relaxed text-sindhu-cream/80 md:text-2xl">
+              <div className="mb-4 font-display text-4xl text-sindhu-gold/30 md:mb-6 md:text-5xl">&ldquo;</div>
+              <p className="font-display text-lg font-light italic leading-relaxed text-sindhu-cream/80 md:text-2xl">
                 {t.quote}
               </p>
               <div className="mt-8 border-t border-white/10 pt-6">

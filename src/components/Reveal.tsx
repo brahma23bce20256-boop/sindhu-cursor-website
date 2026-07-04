@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
 interface RevealProps {
@@ -18,6 +18,7 @@ export default function Reveal({
   direction = "up",
   duration = 0.8,
 }: RevealProps) {
+  const shouldReduceMotion = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -25,16 +26,20 @@ export default function Reveal({
   });
 
   const directionMap = {
-    up: { y: 60, x: 0 },
-    down: { y: -60, x: 0 },
-    left: { y: 0, x: 60 },
-    right: { y: 0, x: -60 },
+    up: { y: 32, x: 0 },
+    down: { y: -32, x: 0 },
+    left: { y: 0, x: 32 },
+    right: { y: 0, x: -32 },
   };
 
   const { y, x } = directionMap[direction];
   const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
   const translateY = useTransform(scrollYProgress, [0, 1], [y, 0]);
   const translateX = useTransform(scrollYProgress, [0, 1], [x, 0]);
+
+  if (shouldReduceMotion) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <motion.div

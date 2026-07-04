@@ -20,6 +20,9 @@ export default function Reservations() {
     alert("Thank you! Your reservation request has been received. We will confirm shortly.");
   };
 
+  const inputClassName =
+    "w-full min-h-[48px] border-b border-white/10 bg-transparent py-3 text-base text-sindhu-cream outline-none transition-colors focus:border-sindhu-gold md:text-sm";
+
   return (
     <section id="reserve" className="section-padding relative overflow-hidden">
       <div className="absolute inset-0">
@@ -31,7 +34,7 @@ export default function Reservations() {
       </div>
 
       <div className="relative mx-auto max-w-7xl">
-        <div className="grid gap-16 lg:grid-cols-2">
+        <div className="grid gap-10 md:gap-16 lg:grid-cols-2">
           <div>
             <Reveal>
               <p className="mb-4 text-xs tracking-[0.4em] text-sindhu-gold">RESERVATIONS</p>
@@ -50,17 +53,23 @@ export default function Reservations() {
             </Reveal>
 
             <Reveal delay={0.3}>
-              <div className="mt-12 space-y-6">
+              <div className="mt-8 space-y-5 md:mt-12 md:space-y-6">
                 {[
-                  { icon: MapPin, text: "123 Culinary Avenue, Downtown District" },
-                  { icon: Phone, text: "+1 (555) 234-5678" },
-                  { icon: Clock, text: "Tue–Sun: 5:00 PM – 11:00 PM" },
-                ].map(({ icon: Icon, text }) => (
+                  { icon: MapPin, text: "123 Culinary Avenue, Downtown District", href: undefined },
+                  { icon: Phone, text: "+1 (555) 234-5678", href: "tel:+15552345678" },
+                  { icon: Clock, text: "Tue–Sun: 5:00 PM – 11:00 PM", href: undefined },
+                ].map(({ icon: Icon, text, href }) => (
                   <div key={text} className="flex items-center gap-4">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full border border-sindhu-gold/20">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-sindhu-gold/20">
                       <Icon size={16} className="text-sindhu-gold" />
                     </div>
-                    <span className="text-sm font-light text-sindhu-cream/60">{text}</span>
+                    {href ? (
+                      <a href={href} className="text-sm font-light text-sindhu-cream/60 active:text-sindhu-gold">
+                        {text}
+                      </a>
+                    ) : (
+                      <span className="text-sm font-light leading-snug text-sindhu-cream/60">{text}</span>
+                    )}
                   </div>
                 ))}
               </div>
@@ -70,9 +79,9 @@ export default function Reservations() {
           <Reveal delay={0.2}>
             <motion.form
               onSubmit={handleSubmit}
-              className="glass-card p-8 md:p-10"
+              className="glass-card p-5 sm:p-8 md:p-10"
             >
-              <div className="grid gap-6">
+              <div className="grid gap-5 md:gap-6">
                 <div>
                   <label className="mb-2 block text-[10px] tracking-widest text-sindhu-cream/40">
                     FULL NAME
@@ -80,9 +89,10 @@ export default function Reservations() {
                   <input
                     type="text"
                     required
+                    autoComplete="name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full border-b border-white/10 bg-transparent py-3 text-sm text-sindhu-cream outline-none transition-colors focus:border-sindhu-gold"
+                    className={inputClassName}
                     placeholder="Your name"
                   />
                 </div>
@@ -94,14 +104,16 @@ export default function Reservations() {
                   <input
                     type="email"
                     required
+                    autoComplete="email"
+                    inputMode="email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full border-b border-white/10 bg-transparent py-3 text-sm text-sindhu-cream outline-none transition-colors focus:border-sindhu-gold"
+                    className={inputClassName}
                     placeholder="your@email.com"
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6">
                   <div>
                     <label className="mb-2 flex items-center gap-2 text-[10px] tracking-widest text-sindhu-cream/40">
                       <Calendar size={12} /> DATE
@@ -111,7 +123,7 @@ export default function Reservations() {
                       required
                       value={formData.date}
                       onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                      className="w-full border-b border-white/10 bg-transparent py-3 text-sm text-sindhu-cream outline-none transition-colors focus:border-sindhu-gold"
+                      className={inputClassName}
                     />
                   </div>
                   <div>
@@ -122,7 +134,7 @@ export default function Reservations() {
                       required
                       value={formData.time}
                       onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                      className="w-full border-b border-white/10 bg-transparent py-3 text-sm text-sindhu-cream outline-none transition-colors focus:border-sindhu-gold"
+                      className={inputClassName}
                     >
                       <option value="" className="bg-sindhu-charcoal">Select time</option>
                       {["5:00 PM", "5:30 PM", "6:00 PM", "6:30 PM", "7:00 PM", "7:30 PM", "8:00 PM", "8:30 PM", "9:00 PM"].map((t) => (
@@ -139,7 +151,7 @@ export default function Reservations() {
                   <select
                     value={formData.guests}
                     onChange={(e) => setFormData({ ...formData, guests: e.target.value })}
-                    className="w-full border-b border-white/10 bg-transparent py-3 text-sm text-sindhu-cream outline-none transition-colors focus:border-sindhu-gold"
+                    className={inputClassName}
                   >
                     {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
                       <option key={n} value={n} className="bg-sindhu-charcoal">
@@ -157,16 +169,15 @@ export default function Reservations() {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     rows={3}
-                    className="w-full resize-none border-b border-white/10 bg-transparent py-3 text-sm text-sindhu-cream outline-none transition-colors focus:border-sindhu-gold"
+                    className="w-full min-h-[96px] resize-none border-b border-white/10 bg-transparent py-3 text-base text-sindhu-cream outline-none transition-colors focus:border-sindhu-gold md:text-sm"
                     placeholder="Allergies, celebrations, seating preferences..."
                   />
                 </div>
 
                 <motion.button
-                  whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   type="submit"
-                  className="mt-4 w-full bg-sindhu-gold py-4 text-xs font-medium tracking-widest text-sindhu-charcoal transition-colors hover:bg-sindhu-gold-light"
+                  className="mt-2 w-full min-h-[48px] bg-sindhu-gold py-4 text-xs font-medium tracking-widest text-sindhu-charcoal transition-colors active:bg-sindhu-gold-light md:mt-4 md:hover:scale-[1.02] md:hover:bg-sindhu-gold-light"
                 >
                   CONFIRM RESERVATION
                 </motion.button>

@@ -44,7 +44,7 @@ function ExperienceCard({
       style={{ y: index % 2 === 0 ? y : undefined, scale }}
       className="group relative overflow-hidden"
     >
-      <div className="relative aspect-[3/4] overflow-hidden">
+      <div className="relative aspect-[4/5] overflow-hidden md:aspect-[3/4]">
         <img
           src={experience.image}
           alt={experience.title}
@@ -53,12 +53,12 @@ function ExperienceCard({
         <div className="absolute inset-0 bg-gradient-to-t from-sindhu-charcoal via-sindhu-charcoal/20 to-transparent" />
         <div className="absolute inset-0 bg-sindhu-gold/0 transition-colors duration-500 group-hover:bg-sindhu-gold/10" />
       </div>
-      <div className="absolute bottom-0 left-0 right-0 p-8">
+      <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
         <p className="mb-2 text-[10px] tracking-[0.3em] text-sindhu-gold">0{index + 1}</p>
-        <h3 className="font-display text-2xl font-light text-sindhu-cream md:text-3xl">
+        <h3 className="font-display text-xl font-light text-sindhu-cream md:text-3xl">
           {experience.title}
         </h3>
-        <p className="mt-3 max-h-0 overflow-hidden text-sm font-light leading-relaxed text-sindhu-cream/60 transition-all duration-500 group-hover:max-h-24">
+        <p className="mt-2 text-sm font-light leading-relaxed text-sindhu-cream/60 md:mt-3 md:max-h-0 md:overflow-hidden md:transition-all md:duration-500 md:group-hover:max-h-24">
           {experience.description}
         </p>
       </div>
@@ -70,7 +70,7 @@ export default function Experience() {
   return (
     <section id="experience" className="section-padding relative overflow-hidden">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-16 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
+        <div className="mb-12 flex flex-col items-start justify-between gap-6 md:mb-16 md:flex-row md:items-end md:gap-8">
           <div>
             <Reveal>
               <p className="mb-4 text-xs tracking-[0.4em] text-sindhu-gold">BEYOND DINING</p>
@@ -89,7 +89,7 @@ export default function Experience() {
           </Reveal>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3 md:gap-8">
+        <div className="grid gap-8 md:grid-cols-3 md:gap-8">
           {experiences.map((exp, i) => (
             <Reveal key={exp.title} delay={i * 0.15}>
               <ExperienceCard experience={exp} index={i} />

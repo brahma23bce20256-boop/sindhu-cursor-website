@@ -22,6 +22,15 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
+  const closeMobileMenu = () => setMobileOpen(false);
+
   return (
     <>
       <motion.nav
@@ -29,17 +38,18 @@ export default function Navbar() {
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "bg-sindhu-charcoal/90 backdrop-blur-xl border-b border-white/5 py-4"
-            : "bg-transparent py-6 md:py-8"
+          scrolled || mobileOpen
+            ? "bg-sindhu-charcoal/90 backdrop-blur-xl border-b border-white/5 py-3 md:py-4"
+            : "bg-transparent py-4 md:py-8"
         }`}
+        style={{ paddingTop: "max(1rem, env(safe-area-inset-top))" }}
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 md:px-12">
-          <a href="#" className="group flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-sindhu-gold/40 transition-colors group-hover:border-sindhu-gold">
-              <span className="font-display text-lg font-semibold text-sindhu-gold">S</span>
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 md:px-12">
+          <a href="#" className="group flex min-w-0 items-center gap-2 sm:gap-3">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-sindhu-gold/40 transition-colors group-hover:border-sindhu-gold sm:h-10 sm:w-10">
+              <span className="font-display text-base font-semibold text-sindhu-gold sm:text-lg">S</span>
             </div>
-            <span className="font-display text-2xl font-light tracking-[0.2em] text-sindhu-cream">
+            <span className="truncate font-display text-xl font-light tracking-[0.15em] text-sindhu-cream sm:text-2xl sm:tracking-[0.2em]">
               SINDHU
             </span>
           </a>
@@ -64,8 +74,9 @@ export default function Navbar() {
 
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="text-sindhu-cream md:hidden"
-            aria-label="Toggle menu"
+            className="touch-target flex items-center justify-center text-sindhu-cream md:hidden"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -79,22 +90,36 @@ export default function Navbar() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ duration: 0.4, ease: [0.25, 0.4, 0.25, 1] }}
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-sindhu-charcoal/98 backdrop-blur-xl md:hidden"
+            className="fixed inset-0 z-40 flex flex-col bg-sindhu-charcoal/98 backdrop-blur-xl md:hidden"
+            style={{
+              paddingTop: "max(5rem, calc(env(safe-area-inset-top) + 4rem))",
+              paddingBottom: "max(2rem, env(safe-area-inset-bottom))",
+            }}
           >
-            <div className="flex flex-col items-center gap-8">
+            <div className="flex flex-1 flex-col items-center justify-center gap-2 px-6">
               {navLinks.map((link, i) => (
                 <motion.a
                   key={link.href}
                   href={link.href}
-                  onClick={() => setMobileOpen(false)}
+                  onClick={closeMobileMenu}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  className="font-display text-3xl font-light tracking-widest text-sindhu-cream"
+                  transition={{ delay: i * 0.08 }}
+                  className="flex w-full max-w-xs items-center justify-center py-4 font-display text-2xl font-light tracking-widest text-sindhu-cream active:text-sindhu-gold"
                 >
                   {link.label}
                 </motion.a>
               ))}
+              <motion.a
+                href="#reserve"
+                onClick={closeMobileMenu}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: navLinks.length * 0.08 }}
+                className="mt-6 w-full max-w-xs bg-sindhu-gold py-4 text-center text-xs font-medium tracking-widest text-sindhu-charcoal"
+              >
+                BOOK A TABLE
+              </motion.a>
             </div>
           </motion.div>
         )}

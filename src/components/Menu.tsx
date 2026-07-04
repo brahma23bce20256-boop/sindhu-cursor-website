@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Reveal from "./Reveal";
 
 const menuCategories = [
@@ -40,7 +39,7 @@ export default function Menu() {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-sindhu-smoke/50 to-transparent" />
 
       <div className="relative mx-auto max-w-7xl">
-        <div className="mb-20 text-center">
+        <div className="mb-12 text-center md:mb-20">
           <Reveal>
             <p className="mb-4 text-xs tracking-[0.4em] text-sindhu-gold">CULINARY COLLECTION</p>
           </Reveal>
@@ -57,18 +56,18 @@ export default function Menu() {
           </Reveal>
         </div>
 
-        <div className="grid gap-16 md:gap-24">
+        <div className="grid gap-12 md:gap-24">
           {menuCategories.map((category, catIndex) => (
             <div key={category.title}>
               <Reveal delay={catIndex * 0.1}>
-                <div className="mb-10 flex items-end justify-between border-b border-white/10 pb-6">
-                  <div>
-                    <h3 className="font-display text-3xl font-light text-sindhu-cream md:text-4xl">
+                <div className="mb-8 flex items-end justify-between border-b border-white/10 pb-4 md:mb-10 md:pb-6">
+                  <div className="min-w-0 flex-1 pr-4">
+                    <h3 className="font-display text-2xl font-light text-sindhu-cream md:text-4xl">
                       {category.title}
                     </h3>
                     <p className="mt-1 text-xs tracking-widest text-sindhu-gold/60">{category.subtitle}</p>
                   </div>
-                  <span className="font-display text-5xl font-light text-white/5">
+                  <span className="shrink-0 font-display text-4xl font-light text-white/5 md:text-5xl">
                     0{catIndex + 1}
                   </span>
                 </div>
@@ -77,22 +76,21 @@ export default function Menu() {
               <div className="grid gap-1">
                 {category.items.map((item, itemIndex) => (
                   <Reveal key={item.name} delay={itemIndex * 0.05}>
-                    <motion.div
-                      whileHover={{ x: 8 }}
-                      transition={{ duration: 0.3 }}
-                      className="group flex items-center justify-between border-b border-white/5 py-6 transition-colors hover:border-sindhu-gold/20"
-                    >
-                      <div className="flex-1">
-                        <h4 className="font-display text-xl font-light text-sindhu-cream transition-colors group-hover:text-sindhu-gold md:text-2xl">
-                          {item.name}
-                        </h4>
-                        <p className="mt-1 text-sm font-light text-sindhu-cream/40">{item.description}</p>
+                    <div className="group flex flex-col gap-1 border-b border-white/5 py-5 transition-colors active:border-sindhu-gold/20 md:flex-row md:items-center md:justify-between md:gap-0 md:py-6 md:hover:border-sindhu-gold/20">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between gap-3 md:block">
+                          <h4 className="font-display text-lg font-light text-sindhu-cream md:text-2xl md:transition-colors md:group-hover:text-sindhu-gold">
+                            {item.name}
+                          </h4>
+                          <span className="shrink-0 font-display text-base text-sindhu-gold md:hidden">{item.price}</span>
+                        </div>
+                        <p className="mt-1 text-sm font-light leading-relaxed text-sindhu-cream/40">{item.description}</p>
                       </div>
-                      <div className="ml-8 flex items-center gap-4">
+                      <div className="ml-0 hidden items-center gap-4 md:ml-8 md:flex">
                         <div className="hidden h-px w-12 bg-sindhu-gold/20 transition-all group-hover:w-20 group-hover:bg-sindhu-gold/40 sm:block" />
                         <span className="font-display text-lg text-sindhu-gold">{item.price}</span>
                       </div>
-                    </motion.div>
+                    </div>
                   </Reveal>
                 ))}
               </div>
@@ -104,7 +102,7 @@ export default function Menu() {
           <div className="mt-20 text-center">
             <a
               href="#reserve"
-              className="inline-block border border-sindhu-gold/30 px-10 py-4 text-xs tracking-widest text-sindhu-gold transition-all hover:bg-sindhu-gold hover:text-sindhu-charcoal"
+              className="inline-block w-full border border-sindhu-gold/30 px-10 py-4 text-center text-xs tracking-widest text-sindhu-gold transition-all active:bg-sindhu-gold active:text-sindhu-charcoal sm:w-auto md:hover:bg-sindhu-gold md:hover:text-sindhu-charcoal"
             >
               VIEW FULL MENU
             </a>

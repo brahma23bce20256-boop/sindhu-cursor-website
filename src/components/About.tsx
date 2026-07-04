@@ -20,9 +20,9 @@ export default function About() {
             </div>
           </Reveal>
           <Reveal delay={0.2}>
-            <div className="absolute -bottom-8 -right-4 glass-card p-8 md:-right-8">
-              <p className="font-display text-4xl font-light text-sindhu-gold">15+</p>
-              <p className="mt-1 text-xs tracking-widest text-sindhu-cream/60">YEARS OF EXCELLENCE</p>
+            <div className="mt-6 w-fit glass-card p-6 md:absolute md:-bottom-8 md:-right-8 md:mt-0 md:p-8">
+              <p className="font-display text-3xl font-light text-sindhu-gold md:text-4xl">15+</p>
+              <p className="mt-1 text-[10px] tracking-widest text-sindhu-cream/60">YEARS OF EXCELLENCE</p>
             </div>
           </Reveal>
         </div>
@@ -56,15 +56,15 @@ export default function About() {
             </p>
           </Reveal>
           <Reveal delay={0.5}>
-            <div className="grid grid-cols-3 gap-8 border-t border-white/10 pt-8">
+            <div className="grid grid-cols-3 gap-4 border-t border-white/10 pt-6 sm:gap-8 sm:pt-8">
               {[
                 { number: "50+", label: "Signature Dishes" },
                 { number: "4.9", label: "Guest Rating" },
                 { number: "3", label: "Award Wins" },
               ].map((stat) => (
-                <div key={stat.label}>
-                  <p className="font-display text-3xl font-light text-sindhu-gold">{stat.number}</p>
-                  <p className="mt-1 text-[10px] tracking-widest text-sindhu-cream/40">{stat.label}</p>
+                <div key={stat.label} className="text-center sm:text-left">
+                  <p className="font-display text-2xl font-light text-sindhu-gold sm:text-3xl">{stat.number}</p>
+                  <p className="mt-1 text-[9px] leading-tight tracking-widest text-sindhu-cream/40 sm:text-[10px]">{stat.label}</p>
                 </div>
               ))}
             </div>
