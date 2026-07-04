@@ -1,152 +1,173 @@
 {
   "categories": [
     {
-      "id": "starters",
-      "title": "Starters",
-      "subtitle": "Awaken Your Palate",
+      "id": "biryanis",
+      "title": "Biryanis",
+      "subtitle": "Where It All Started — Our Signature",
       "items": [
         {
-          "id": "tandoori-prawns",
-          "name": "Tandoori Prawns",
-          "description": "Charred tiger prawns with mint chutney",
-          "price": 18,
-          "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80",
-          "tags": ["bestseller"],
-          "orderable": true
-        },
-        {
-          "id": "paneer-tikka",
-          "name": "Paneer Tikka",
-          "description": "Smoky cottage cheese with bell peppers",
-          "price": 14,
-          "image": "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=600&q=80",
-          "tags": ["vegetarian"],
-          "orderable": true
-        },
-        {
-          "id": "samosa-chaat",
-          "name": "Samosa Chaat",
-          "description": "Crispy pastry with tamarind & yogurt",
-          "price": 12,
-          "tags": ["vegetarian", "spicy"],
-          "orderable": true
-        },
-        {
-          "id": "chicken-65",
-          "name": "Chicken 65",
-          "description": "Crispy spiced chicken with curry leaves",
-          "price": 16,
-          "tags": ["spicy", "bestseller"],
-          "orderable": true
-        }
-      ]
-    },
-    {
-      "id": "mains",
-      "title": "Mains",
-      "subtitle": "The Heart of Sindhu",
-      "items": [
-        {
-          "id": "butter-chicken",
-          "name": "Butter Chicken",
-          "description": "Creamy tomato curry, aged basmati rice",
-          "price": 26,
+          "id": "chicken-dum-biryani",
+          "name": "Chicken Dum Biryani",
+          "description": "The original Sindhu special — fragrant basmati, tender chicken, slow dum cooked",
+          "price": 149,
           "image": "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&q=80",
           "tags": ["bestseller"],
           "orderable": true
         },
         {
-          "id": "lamb-rogan-josh",
-          "name": "Lamb Rogan Josh",
-          "description": "Kashmiri spices, slow-braised lamb",
-          "price": 32,
-          "tags": ["spicy"],
-          "orderable": true
-        },
-        {
-          "id": "palak-paneer",
-          "name": "Palak Paneer",
-          "description": "Spinach gravy with house-made paneer",
-          "price": 22,
-          "tags": ["vegetarian"],
-          "orderable": true
-        },
-        {
-          "id": "biryani-royale",
-          "name": "Biryani Royale",
-          "description": "Saffron-infused rice with tender lamb",
-          "price": 28,
+          "id": "mutton-biryani",
+          "name": "Mutton Biryani",
+          "description": "Rich, spicy mutton layered with saffron rice — a weekend favourite",
+          "price": 199,
           "image": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=600&q=80",
+          "tags": ["bestseller", "spicy"],
+          "orderable": true
+        },
+        {
+          "id": "egg-biryani",
+          "name": "Egg Biryani",
+          "description": "Boiled eggs in aromatic masala rice — perfect student budget pick",
+          "price": 99,
           "tags": ["bestseller"],
           "orderable": true
         },
         {
-          "id": "dal-makhani",
-          "name": "Dal Makhani",
-          "description": "Slow-cooked black lentils in cream & butter",
-          "price": 18,
+          "id": "paneer-biryani",
+          "name": "Paneer Biryani",
+          "description": "Soft paneer cubes in spiced biryani rice — veg favourite",
+          "price": 129,
+          "image": "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&q=80",
+          "tags": ["vegetarian", "bestseller"],
+          "orderable": true
+        },
+        {
+          "id": "veg-biryani",
+          "name": "Veg Biryani",
+          "description": "Mixed vegetables, mint & fried onions — full flavour, fully veg",
+          "price": 119,
+          "tags": ["vegetarian"],
+          "orderable": true
+        },
+        {
+          "id": "special-biryani",
+          "name": "Sindhu Special Biryani",
+          "description": "Double masala, extra raita — for when you're really hungry",
+          "price": 179,
+          "tags": ["bestseller", "spicy"],
+          "orderable": true
+        }
+      ]
+    },
+    {
+      "id": "starters",
+      "title": "Starters",
+      "subtitle": "Share With Your Squad",
+      "items": [
+        {
+          "id": "chicken-65",
+          "name": "Chicken 65",
+          "description": "Crispy, spicy Andhra-style — goes great before biryani",
+          "price": 149,
+          "tags": ["spicy", "bestseller"],
+          "orderable": true
+        },
+        {
+          "id": "chicken-lollipop",
+          "name": "Chicken Lollipop",
+          "description": "Crunchy starter — hostel group order classic",
+          "price": 159,
+          "tags": ["bestseller"],
+          "orderable": true
+        },
+        {
+          "id": "paneer-65",
+          "name": "Paneer 65",
+          "description": "Spicy fried paneer bites for veg lovers",
+          "price": 129,
+          "tags": ["vegetarian", "spicy"],
+          "orderable": true
+        },
+        {
+          "id": "samosa",
+          "name": "Samosa (2 pcs)",
+          "description": "Hot, crispy — quick snack between classes",
+          "price": 40,
           "tags": ["vegetarian"],
           "orderable": true
         }
       ]
     },
     {
-      "id": "breads",
-      "title": "Breads",
-      "subtitle": "From Our Tandoor",
+      "id": "veg",
+      "title": "Veg Mains",
+      "subtitle": "Pure Veg, Full Flavour",
       "items": [
         {
-          "id": "garlic-naan",
-          "name": "Garlic Naan",
-          "description": "Soft leavened bread with garlic & butter",
-          "price": 5,
+          "id": "paneer-butter-masala",
+          "name": "Paneer Butter Masala",
+          "description": "Creamy tomato gravy with soft paneer + jeera rice",
+          "price": 139,
+          "tags": ["vegetarian", "bestseller"],
+          "orderable": true
+        },
+        {
+          "id": "dal-fry",
+          "name": "Dal Fry",
+          "description": "Comfort dal with rice or roti — easy on the pocket",
+          "price": 89,
           "tags": ["vegetarian"],
           "orderable": true
         },
         {
-          "id": "butter-naan",
-          "name": "Butter Naan",
-          "description": "Classic tandoor-baked flatbread",
-          "price": 4,
+          "id": "veg-fried-rice",
+          "name": "Veg Fried Rice",
+          "description": "Wok-tossed rice with veggies — quick lunch option",
+          "price": 99,
           "tags": ["vegetarian"],
           "orderable": true
         },
         {
-          "id": "cheese-naan",
-          "name": "Cheese Naan",
-          "description": "Stuffed with melted cheese",
-          "price": 6,
+          "id": "mushroom-masala",
+          "name": "Mushroom Masala",
+          "description": "Earthy mushrooms in spicy onion-tomato gravy",
+          "price": 129,
           "tags": ["vegetarian"],
           "orderable": true
         }
       ]
     },
     {
-      "id": "desserts",
-      "title": "Desserts",
-      "subtitle": "Sweet Endings",
+      "id": "extras",
+      "title": "Extras",
+      "subtitle": "Complete Your Plate",
       "items": [
         {
-          "id": "gulab-jamun",
-          "name": "Gulab Jamun",
-          "description": "Warm milk dumplings in rose syrup",
-          "price": 10,
+          "id": "raita",
+          "name": "Raita",
+          "description": "Cool yogurt side — must with biryani",
+          "price": 30,
           "tags": ["vegetarian"],
           "orderable": true
         },
         {
-          "id": "kulfi-falooda",
-          "name": "Kulfi Falooda",
-          "description": "Traditional ice cream with vermicelli",
-          "price": 12,
-          "tags": ["vegetarian"],
+          "id": "salna",
+          "name": "Salna / Gravy",
+          "description": "Extra salna for your biryani",
+          "price": 40,
           "orderable": true
         },
         {
-          "id": "rasmalai",
-          "name": "Rasmalai",
-          "description": "Soft cheese patties in cardamom milk",
-          "price": 11,
+          "id": "boiled-egg",
+          "name": "Boiled Egg (extra)",
+          "description": "Add an egg to any biryani",
+          "price": 20,
+          "orderable": true
+        },
+        {
+          "id": "roti",
+          "name": "Roti (2 pcs)",
+          "description": "Soft tawa roti",
+          "price": 30,
           "tags": ["vegetarian"],
           "orderable": true
         }
@@ -154,31 +175,37 @@
     },
     {
       "id": "beverages",
-      "title": "Beverages",
-      "subtitle": "Refresh & Revive",
+      "title": "Drinks",
+      "subtitle": "Beat the Amaravati Heat",
       "items": [
         {
-          "id": "mango-lassi",
-          "name": "Mango Lassi",
-          "description": "Creamy yogurt drink with Alphonso mango",
-          "price": 7,
+          "id": "fresh-lime",
+          "name": "Fresh Lime Soda",
+          "description": "Sweet or salt — your pick",
+          "price": 40,
           "tags": ["vegetarian"],
           "orderable": true
         },
         {
-          "id": "masala-chai",
-          "name": "Masala Chai",
-          "description": "Spiced tea brewed with aromatic spices",
-          "price": 5,
+          "id": "lassi",
+          "name": "Sweet Lassi",
+          "description": "Thick, cooling yogurt drink",
+          "price": 50,
           "tags": ["vegetarian"],
           "orderable": true
         },
         {
-          "id": "nimbu-pani",
-          "name": "Nimbu Pani",
-          "description": "Fresh lime water with cumin & mint",
-          "price": 6,
-          "tags": ["vegetarian"],
+          "id": "soft-drink",
+          "name": "Soft Drink",
+          "description": "Chilled bottle",
+          "price": 40,
+          "orderable": true
+        },
+        {
+          "id": "water",
+          "name": "Mineral Water",
+          "description": "500 ml bottle",
+          "price": 20,
           "orderable": true
         }
       ]

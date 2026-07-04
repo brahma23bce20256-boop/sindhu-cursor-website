@@ -61,6 +61,7 @@ export interface SiteSettings {
     embedUrl: string;
     directionsUrl: string;
   };
+  serviceAreas?: string[];
   stats: {
     years: string;
     dishes: string;
@@ -96,5 +97,5 @@ export interface OrderPayload {
 }
 
 export function formatPrice(price: number): string {
-  return `$${price.toFixed(price % 1 === 0 ? 0 : 2)}`;
+  return `₹${Math.round(price)}`;
 }

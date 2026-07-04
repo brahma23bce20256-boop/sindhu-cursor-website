@@ -13,7 +13,7 @@ export async function POST(request: Request) {
     const body = (await request.json()) as OrderPayload;
     const { name, email, phone, type, address, notes, items } = body;
 
-    if (!name?.trim() || !email?.trim() || !phone?.trim() || !type) {
+    if (!name?.trim() || !phone?.trim() || !type) {
       return NextResponse.json(
         { error: "Please fill in all required fields." },
         { status: 400 }

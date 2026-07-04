@@ -10,14 +10,18 @@ const config: Config = {
     extend: {
       colors: {
         sindhu: {
-          gold: "#C9A962",
-          "gold-light": "#E8D5A3",
-          "gold-dark": "#8B7340",
-          cream: "#F5F0E8",
-          charcoal: "#1A1814",
-          smoke: "#2D2A26",
-          ember: "#8B3A2F",
-          saffron: "#D4A04A",
+          gold: "#F4A825",
+          "gold-light": "#FFD56B",
+          "gold-dark": "#C47F0A",
+          cream: "#FFF8ED",
+          charcoal: "#1A120E",
+          smoke: "#2A1F18",
+          ember: "#C0392B",
+          saffron: "#E8940A",
+          spice: "#D35400",
+          maroon: "#7B241C",
+          rice: "#F5E6C8",
+          leaf: "#2E7D4F",
         },
       },
       fontFamily: {
@@ -27,6 +31,7 @@ const config: Config = {
       animation: {
         "fade-up": "fadeUp 1s ease-out forwards",
         shimmer: "shimmer 3s ease-in-out infinite",
+        pulse-glow: "pulseGlow 2s ease-in-out infinite",
       },
       keyframes: {
         fadeUp: {
@@ -36,6 +41,10 @@ const config: Config = {
         shimmer: {
           "0%, 100%": { opacity: "0.5" },
           "50%": { opacity: "1" },
+        },
+        pulseGlow: {
+          "0%, 100%": { boxShadow: "0 0 0 0 rgba(244, 168, 37, 0.4)" },
+          "50%": { boxShadow: "0 0 20px 4px rgba(244, 168, 37, 0.25)" },
         },
       },
     },

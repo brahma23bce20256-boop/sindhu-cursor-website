@@ -1,21 +1,21 @@
 {
   "name": "Sindhu",
-  "tagline": "Fine Dining · Indian Cuisine",
-  "description": "Experience the art of Indian cuisine at Sindhu — where tradition meets innovation in an atmosphere of refined elegance.",
+  "tagline": "Biryani · Starters · Veg · More",
+  "description": "Sindhu started with one legendary biryani — now serving biryanis, starters, veg favourites and more for VIT-AP students and Amaravati & Mandadam residents.",
   "url": "https://sindhu-restaurant.com",
   "contact": {
-    "address": "123 Culinary Avenue, Downtown District",
-    "phone": "+1 (555) 234-5678",
-    "phoneHref": "tel:+15552345678",
-    "email": "reservations@sindhu.com",
-    "reservationEmail": "reservations@sindhu.com",
-    "orderEmail": "orders@sindhu.com"
+    "address": "Near VIT-AP University, Inavolu, Amaravati, Andhra Pradesh 522237",
+    "phone": "+91 98765 43210",
+    "phoneHref": "tel:+919876543210",
+    "email": "hello@sindhu.in",
+    "reservationEmail": "hello@sindhu.in",
+    "orderEmail": "orders@sindhu.in"
   },
   "hours": {
-    "weekday": { "days": "Tuesday – Thursday", "time": "5:00 PM – 10:00 PM" },
-    "weekend": { "days": "Friday – Sunday", "time": "5:00 PM – 11:00 PM" },
-    "closed": "Monday",
-    "reservation": "Tue–Sun: 5:00 PM – 11:00 PM"
+    "weekday": { "days": "Monday – Friday", "time": "11:00 AM – 11:00 PM" },
+    "weekend": { "days": "Saturday – Sunday", "time": "11:00 AM – 11:30 PM" },
+    "closed": "None",
+    "reservation": "Daily: 11:00 AM – 11:00 PM"
   },
   "social": {
     "instagram": "https://instagram.com/sindhu",
@@ -23,13 +23,19 @@
     "twitter": "https://twitter.com/sindhu"
   },
   "maps": {
-    "embedUrl": "https://maps.google.com/maps?q=Times+Square+New+York&output=embed",
-    "directionsUrl": "https://maps.google.com/?q=123+Culinary+Avenue+Downtown+District"
+    "embedUrl": "https://maps.google.com/maps?q=VIT-AP+University+Inavolu+Amaravati+Andhra+Pradesh&output=embed",
+    "directionsUrl": "https://maps.google.com/?q=VIT-AP+University+Inavolu+Amaravati+522237"
   },
+  "serviceAreas": [
+    "VIT-AP University Campus",
+    "Mandadam",
+    "Amaravati (Capital Region)",
+    "Inavolu & nearby hostels"
+  ],
   "stats": {
-    "years": "15+",
-    "dishes": "50+",
-    "rating": "4.9",
-    "awards": "3"
+    "years": "3+",
+    "dishes": "25+",
+    "rating": "4.8",
+    "awards": "1"
   }
 }

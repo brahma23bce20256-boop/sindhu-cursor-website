@@ -11,7 +11,7 @@ export default async function Home() {
   return (
     <HomePageClient
       site={site}
-      menuCategories={menu.categories.slice(0, 3)}
+      menuCategories={menu.categories}
       galleryImages={gallery.images}
     />
   );
