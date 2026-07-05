@@ -60,11 +60,15 @@ export const authOptions: NextAuthOptions = {
     })
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
         token.role = user.role;
         // The type for user from authorize comes through here
         token.phoneNumber = (user as any).phoneNumber;
+      }
+      if (trigger === "update" && session) {
+        if (session.name) token.name = session.name;
+        if (session.phoneNumber) token.phoneNumber = session.phoneNumber;
       }
       return token
     },

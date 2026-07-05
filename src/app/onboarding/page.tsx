@@ -41,8 +41,8 @@ export default function OnboardingPage() {
 
       const data = await res.json();
       if (res.ok) {
-        // Force session update so the frontend knows the phone number is set
-        await update({ phoneNumber: data.user.phoneNumber });
+        // Force session update so the JWT/middleware sees the completed profile
+        await update({ name: data.user.name, phoneNumber: data.user.phoneNumber });
         router.push("/orders");
       } else {
         setError(data.error || "Failed to update profile");
