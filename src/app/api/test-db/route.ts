@@ -8,6 +8,7 @@ export async function GET() {
       where: { email: 'admin@sindhu.com' }
     });
     if (!user) return NextResponse.json({ error: "User not found" });
+    if (!user.password) return NextResponse.json({ error: "User has no password" });
     
     const isValid = await bcrypt.compare('admin123', user.password);
     return NextResponse.json({ user, isValid });

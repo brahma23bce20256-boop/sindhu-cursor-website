@@ -5,9 +5,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { ChevronLeft, Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
+import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function UserLogin() {
+function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
@@ -199,5 +200,13 @@ export default function UserLogin() {
         </AnimatePresence>
       </motion.div>
     </div>
+  );
+}
+
+export default function UserLogin() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-sindhu-bg flex items-center justify-center"><Loader2 className="animate-spin text-sindhu-terracotta" /></div>}>
+      <LoginContent />
+    </Suspense>
   );
 }
