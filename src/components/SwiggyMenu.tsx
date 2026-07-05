@@ -2,7 +2,9 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { useEffect, useRef, useState } from "react";
-import { ShoppingBag, Plus, Minus, Search, ChevronRight } from "lucide-react";
+import { ShoppingBag, Plus, Minus, Search, ChevronRight, Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 import { useCart } from "@/context/CartContext";
 import type { MenuCategory, MenuItem } from "@/lib/cms/types";
 
@@ -11,8 +13,10 @@ interface SwiggyMenuProps {
 }
 
 export default function SwiggyMenu({ categories }: SwiggyMenuProps) {
+  const router = useRouter();
   const { lines, total, addItem, updateQuantity } = useCart();
   const [activeCategory, setActiveCategory] = useState<string>(categories[0]?.id || "");
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
   const categoryRefs = useRef<Record<string, HTMLElement | null>>({});
 
   // Scrollspy logic
@@ -42,6 +46,34 @@ export default function SwiggyMenu({ categories }: SwiggyMenuProps) {
       const offset = window.innerWidth < 768 ? 140 : 100;
       const y = el.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  };
+
+  const handleCheckout = async () => {
+    if (lines.length === 0 || isCheckingOut) return;
+    setIsCheckingOut(true);
+
+    try {
+      const res = await fetch("/api/orders/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items: lines.map((l) => ({ id: l.item.id, name: l.item.name, quantity: l.quantity, price: l.item.price })),
+          totalAmount: total + Math.round(total * 0.05),
+        }),
+      });
+
+      const data = await res.json();
+      if (res.ok && data.orderId) {
+        router.push(`/checkout/${data.orderId}`);
+      } else {
+        alert(data.error || "Checkout failed");
+        setIsCheckingOut(false);
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Failed to checkout");
+      setIsCheckingOut(false);
     }
   };
 
@@ -104,12 +136,19 @@ export default function SwiggyMenu({ categories }: SwiggyMenuProps) {
             >
               <h2 className="px-4 md:px-0 mb-2 text-2xl font-bold text-sindhu-text tracking-tight">{category.title}</h2>
               <div className="flex flex-col divide-y divide-sindhu-border/60">
-                {category.items.map((item) => {
+                {category.items.map((item, index) => {
                   const cartLine = lines.find((l) => l.item.id === item.id);
                   const quantity = cartLine ? cartLine.quantity : 0;
 
                   return (
-                    <div key={item.id} className="flex justify-between gap-4 p-4 md:px-0 md:py-10 bg-white group">
+                    <motion.div 
+                      initial={{ opacity: 0, y: 15 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{ duration: 0.4, delay: index * 0.05 }}
+                      key={item.id} 
+                      className="flex justify-between gap-4 p-4 md:px-0 md:py-10 bg-white group"
+                    >
                       {/* Left: Item Info */}
                       <div className="flex-1 pr-2">
                         <div className="mb-2 flex items-center gap-2">
@@ -177,7 +216,7 @@ export default function SwiggyMenu({ categories }: SwiggyMenuProps) {
                           )}
                         </div>
                       </div>
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
@@ -261,9 +300,13 @@ export default function SwiggyMenu({ categories }: SwiggyMenuProps) {
                     <span>To Pay</span>
                     <span>₹{total + Math.round(total * 0.05)}</span>
                   </div>
-                  <button className="w-full bg-[#1ba672] text-white rounded-xl py-3.5 font-bold hover:bg-[#158e61] transition-colors flex items-center justify-between px-6 shadow-md shadow-[#1ba672]/20">
-                    <span className="text-sm font-semibold">Checkout</span>
-                    <span className="flex items-center gap-1 text-sm">{total + Math.round(total * 0.05)} <ChevronRight size={16} /></span>
+                  <button 
+                    onClick={handleCheckout}
+                    disabled={isCheckingOut}
+                    className="w-full bg-[#1ba672] text-white rounded-xl py-3.5 font-bold hover:bg-[#158e61] transition-colors flex items-center justify-between px-6 shadow-md shadow-[#1ba672]/20 disabled:opacity-70"
+                  >
+                    <span className="text-sm font-semibold">{isCheckingOut ? "Processing..." : "Checkout"}</span>
+                    {isCheckingOut ? <Loader2 size={16} className="animate-spin" /> : <span className="flex items-center gap-1 text-sm">{total + Math.round(total * 0.05)} <ChevronRight size={16} /></span>}
                   </button>
                 </div>
               </div>
@@ -285,8 +328,12 @@ export default function SwiggyMenu({ categories }: SwiggyMenuProps) {
                 <span className="text-[10px] font-normal opacity-80 uppercase tracking-widest">Plus Taxes</span>
               </span>
             </div>
-            <button className="flex items-center gap-1 text-[15px] font-bold tracking-wide">
-              View Cart <ChevronRight size={18} strokeWidth={2.5} />
+            <button 
+              onClick={handleCheckout}
+              disabled={isCheckingOut}
+              className="flex items-center gap-1 text-[15px] font-bold tracking-wide disabled:opacity-70"
+            >
+              {isCheckingOut ? "Processing..." : "View Cart"} {!isCheckingOut && <ChevronRight size={18} strokeWidth={2.5} />}
             </button>
           </div>
         </div>

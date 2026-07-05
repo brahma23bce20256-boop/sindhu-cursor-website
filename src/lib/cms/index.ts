@@ -40,7 +40,17 @@ export async function getMenu(): Promise<MenuData> {
     orderBy: { id: 'asc' }
   });
 
-  return { categories: categories as any[] };
+  const mappedCategories = categories.map(cat => ({
+    ...cat,
+    items: cat.items
+      .filter(item => item.isAvailable)
+      .map(item => ({
+        ...item,
+        orderable: item.isAvailable,
+      }))
+  }));
+
+  return { categories: mappedCategories as any[] };
 }
 
 export async function getGallery(): Promise<GalleryData> {
