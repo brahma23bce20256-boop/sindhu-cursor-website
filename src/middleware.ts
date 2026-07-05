@@ -18,7 +18,16 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET })
+  // Derive secureCookie from the actual incoming request rather than NEXTAUTH_URL:
+  // getToken() otherwise trusts NEXTAUTH_URL's protocol to pick the cookie name
+  // (__Secure-... vs plain), which silently mismatches the cookie NextAuth actually
+  // set (based on the real request) whenever NEXTAUTH_URL is misconfigured, e.g. still
+  // pointing at http://localhost in a Vercel production deployment.
+  const token = await getToken({
+    req: request,
+    secret: process.env.NEXTAUTH_SECRET,
+    secureCookie: request.nextUrl.protocol === 'https:',
+  })
   const guestToken = request.cookies.get('guest_access');
 
   if (!token && !guestToken) {
