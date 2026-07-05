@@ -15,11 +15,6 @@ const experiences = [
     description: "Witness culinary artistry up close. A multi-course tasting journey with wine pairings in our open kitchen.",
     image: "https://images.unsplash.com/photo-1600565193348-f74bd4c7ccaa?w=800&q=80",
   },
-  {
-    title: "Wine & Spice",
-    description: "Monthly evenings exploring the harmony between Indian spices and curated wines from around the world.",
-    image: "https://images.unsplash.com/photo-1510812431401-41e2bd2722f3?w=800&q=80",
-  },
 ];
 
 function ExperienceCard({
@@ -50,15 +45,15 @@ function ExperienceCard({
           alt={experience.title}
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-sindhu-charcoal via-sindhu-charcoal/20 to-transparent" />
-        <div className="absolute inset-0 bg-sindhu-gold/0 transition-colors duration-500 group-hover:bg-sindhu-gold/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent" />
+        <div className="absolute inset-0 bg-sindhu-terracotta/0 transition-colors duration-500 group-hover:bg-sindhu-terracotta/10" />
       </div>
       <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-        <p className="mb-2 text-[10px] tracking-[0.3em] text-sindhu-gold">0{index + 1}</p>
-        <h3 className="font-display text-xl font-light text-sindhu-cream md:text-3xl">
+        <p className="mb-2 text-[10px] tracking-[0.3em] text-sindhu-terracotta">0{index + 1}</p>
+        <h3 className="font-display text-xl font-light text-sindhu-text md:text-3xl">
           {experience.title}
         </h3>
-        <p className="mt-2 text-sm font-light leading-relaxed text-sindhu-cream/60 md:mt-3 md:max-h-0 md:overflow-hidden md:transition-all md:duration-500 md:group-hover:max-h-24">
+        <p className="mt-2 text-sm font-light leading-relaxed text-sindhu-text-light md:mt-3 md:max-h-0 md:overflow-hidden md:transition-all md:duration-500 md:group-hover:max-h-24">
           {experience.description}
         </p>
       </div>
@@ -73,23 +68,23 @@ export default function Experience() {
         <div className="mb-12 flex flex-col items-start justify-between gap-6 md:mb-16 md:flex-row md:items-end md:gap-8">
           <div>
             <Reveal>
-              <p className="mb-4 text-xs tracking-[0.4em] text-sindhu-gold">BEYOND DINING</p>
+              <p className="mb-4 text-xs tracking-[0.4em] text-sindhu-terracotta">BEYOND DINING</p>
             </Reveal>
             <Reveal delay={0.1}>
-              <h2 className="font-display text-4xl font-light text-sindhu-cream md:text-6xl">
+              <h2 className="font-display text-4xl font-light text-sindhu-text md:text-6xl">
                 The Sindhu
                 <span className="gold-gradient-text block">Experience</span>
               </h2>
             </Reveal>
           </div>
           <Reveal delay={0.2}>
-            <p className="max-w-sm text-sm font-light leading-relaxed text-sindhu-cream/50">
+            <p className="max-w-sm text-sm font-light leading-relaxed text-sindhu-text/50">
               More than a meal — an immersive journey through culture, flavor, and hospitality
             </p>
           </Reveal>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-3 md:gap-8">
+        <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2 md:gap-12">
           {experiences.map((exp, i) => (
             <Reveal key={exp.title} delay={i * 0.15}>
               <ExperienceCard experience={exp} index={i} />

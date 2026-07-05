@@ -63,7 +63,7 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
   };
 
   const inputClass =
-    "w-full min-h-[48px] border-b border-white/10 bg-transparent py-3 text-base text-sindhu-cream outline-none focus:border-sindhu-gold md:text-sm";
+    "w-full min-h-[48px] border-b border-white/10 bg-transparent py-3 text-base text-sindhu-text outline-none focus:border-sindhu-gold md:text-sm";
 
   const deliveryPresets = site.serviceAreas ?? [
     "VIT-AP University Campus",
@@ -111,7 +111,7 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
     <>
       {/* Sticky category nav */}
       <div
-        className="sticky z-30 border-b border-sindhu-gold/10 bg-sindhu-charcoal/95 backdrop-blur-xl"
+        className="sticky z-30 border-b border-sindhu-border bg-white/95 backdrop-blur-xl"
         style={{ top: "calc(4rem + env(safe-area-inset-top))" }}
       >
         <div className="mx-auto flex max-w-7xl gap-1.5 overflow-x-auto px-4 py-3 scrollbar-none sm:px-6 md:px-12">
@@ -121,8 +121,8 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
               onClick={() => scrollToCategory(cat.id)}
               className={`shrink-0 rounded-full px-4 py-2 text-[11px] font-medium tracking-wide sm:text-xs ${
                 activeCategory === cat.id
-                  ? "bg-sindhu-gold text-sindhu-charcoal"
-                  : "bg-sindhu-smoke text-sindhu-cream/60 active:text-sindhu-gold"
+                  ? "bg-sindhu-terracotta text-sindhu-charcoal"
+                  : "bg-sindhu-bg-alt text-sindhu-text-light active:text-sindhu-terracotta"
               }`}
             >
               {cat.title}
@@ -134,7 +134,7 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
       <div className="section-padding !pb-28 !pt-6 md:!pb-16">
         <div className="mx-auto max-w-7xl">
           {success && (
-            <div className="mb-6 rounded-lg border border-sindhu-leaf/40 bg-sindhu-leaf/10 p-4 text-sm text-sindhu-cream">
+            <div className="mb-6 rounded-lg border border-sindhu-leaf/40 bg-sindhu-leaf/10 p-4 text-sm text-sindhu-text">
               ✅ {success}
             </div>
           )}
@@ -150,16 +150,16 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
             >
               <div className="mb-6 flex items-end justify-between border-b border-sindhu-gold/15 pb-4">
                 <div>
-                  <p className="text-[10px] tracking-widest text-sindhu-saffron">
+                  <p className="text-[10px] tracking-widest text-sindhu-terracotta">
                     {String(catIndex + 1).padStart(2, "0")}
                   </p>
-                  <h2 className="font-display text-2xl font-light text-sindhu-cream md:text-3xl">
+                  <h2 className="font-display text-2xl font-light text-sindhu-text md:text-3xl">
                     {category.title}
                   </h2>
-                  <p className="mt-1 text-xs text-sindhu-cream/40">{category.subtitle}</p>
+                  <p className="mt-1 text-xs text-sindhu-text-light/70">{category.subtitle}</p>
                 </div>
                 {category.id === "biryanis" && (
-                  <span className="hidden rounded-full bg-sindhu-maroon/40 px-3 py-1 text-[10px] tracking-widest text-sindhu-gold md:inline">
+                  <span className="hidden rounded-full bg-sindhu-maroon/40 px-3 py-1 text-[10px] tracking-widest text-sindhu-terracotta md:inline">
                     OUR ORIGIN
                   </span>
                 )}
@@ -174,7 +174,7 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
                     return (
                       <div
                         key={item.id}
-                        className="flex items-center gap-3 border border-white/5 bg-sindhu-smoke/50 p-3"
+                        className="flex items-center gap-3 border border-white/5 bg-sindhu-bg-alt/50 p-3"
                       >
                         {item.image && (
                           <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-sm">
@@ -183,18 +183,18 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
                         )}
                         <div className="min-w-0 flex-1">
                           <div className="flex items-start justify-between gap-2">
-                            <h3 className="text-sm font-medium text-sindhu-cream">{item.name}</h3>
-                            <span className="shrink-0 text-sm font-semibold text-sindhu-gold">
+                            <h3 className="text-sm font-medium text-sindhu-text">{item.name}</h3>
+                            <span className="shrink-0 text-sm font-semibold text-sindhu-terracotta">
                               {formatPrice(item.price)}
                             </span>
                           </div>
-                          <p className="mt-0.5 line-clamp-2 text-[11px] text-sindhu-cream/40">
+                          <p className="mt-0.5 line-clamp-2 text-[11px] text-sindhu-text-light/70">
                             {item.description}
                           </p>
                           {item.tags && item.tags.length > 0 && (
                             <div className="mt-1 flex flex-wrap gap-1">
                               {item.tags.map((tag) => (
-                                <span key={tag} className="text-[9px] text-sindhu-gold/70">
+                                <span key={tag} className="text-[9px] text-sindhu-terracotta/70">
                                   {tagLabels[tag]}
                                 </span>
                               ))}
@@ -205,7 +205,7 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
                           <div className="flex shrink-0 flex-col items-center gap-1">
                             <button
                               onClick={() => updateQuantity(item.id, inCart.quantity + 1)}
-                              className="touch-target flex h-8 w-8 items-center justify-center bg-sindhu-gold text-sindhu-charcoal"
+                              className="touch-target flex h-8 w-8 items-center justify-center bg-sindhu-terracotta text-sindhu-charcoal"
                             >
                               <Plus size={14} />
                             </button>
@@ -220,7 +220,7 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
                         ) : (
                           <button
                             onClick={() => addItem(item)}
-                            className="flex h-10 w-10 shrink-0 items-center justify-center bg-sindhu-gold/15 text-sindhu-gold active:bg-sindhu-gold active:text-sindhu-charcoal"
+                            className="flex h-10 w-10 shrink-0 items-center justify-center bg-sindhu-terracotta/15 text-sindhu-terracotta active:bg-sindhu-terracotta active:text-sindhu-charcoal"
                             aria-label={`Add ${item.name}`}
                           >
                             <Plus size={18} />
@@ -240,7 +240,7 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
                     return (
                       <div
                         key={item.id}
-                        className="glass-card flex flex-col overflow-hidden border-sindhu-gold/10"
+                        className="glass-card flex flex-col overflow-hidden border-sindhu-border"
                       >
                         {item.image && (
                           <div className="relative aspect-[16/10] w-full">
@@ -249,18 +249,18 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
                         )}
                         <div className="flex flex-1 flex-col p-4">
                           <div className="flex items-start justify-between gap-2">
-                            <h3 className="font-display text-lg text-sindhu-cream">{item.name}</h3>
-                            <span className="shrink-0 font-semibold text-sindhu-gold">
+                            <h3 className="font-display text-lg text-sindhu-text">{item.name}</h3>
+                            <span className="shrink-0 font-semibold text-sindhu-terracotta">
                               {formatPrice(item.price)}
                             </span>
                           </div>
-                          <p className="mt-1 flex-1 text-xs leading-relaxed text-sindhu-cream/40">
+                          <p className="mt-1 flex-1 text-xs leading-relaxed text-sindhu-text-light/70">
                             {item.description}
                           </p>
                           {item.tags && (
                             <div className="mt-2 flex flex-wrap gap-2">
                               {item.tags.map((tag) => (
-                                <span key={tag} className="text-[10px] text-sindhu-gold/70">
+                                <span key={tag} className="text-[10px] text-sindhu-terracotta/70">
                                   {tagLabels[tag]}
                                 </span>
                               ))}
@@ -285,7 +285,7 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
                           ) : (
                             <button
                               onClick={() => addItem(item)}
-                              className="mt-4 flex min-h-[44px] w-full items-center justify-center gap-2 bg-sindhu-gold/15 text-xs font-medium tracking-widest text-sindhu-gold hover:bg-sindhu-gold hover:text-sindhu-charcoal"
+                              className="mt-4 flex min-h-[44px] w-full items-center justify-center gap-2 bg-sindhu-terracotta/15 text-xs font-medium tracking-widest text-sindhu-terracotta hover:bg-sindhu-terracotta hover:text-sindhu-charcoal"
                             >
                               <Plus size={14} />
                               ADD
@@ -304,12 +304,12 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
       {/* Mobile cart bar */}
       {itemCount > 0 && (
         <div
-          className="fixed bottom-0 left-0 right-0 z-40 border-t border-sindhu-gold/20 bg-sindhu-charcoal/98 p-3 backdrop-blur-xl md:hidden"
+          className="fixed bottom-0 left-0 right-0 z-40 border-t border-sindhu-gold/20 bg-white/98 p-3 backdrop-blur-xl md:hidden"
           style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
         >
           <button
             onClick={() => setCartOpen(true)}
-            className="flex w-full min-h-[52px] items-center justify-between rounded-lg bg-sindhu-gold px-5 py-3 text-sindhu-charcoal"
+            className="flex w-full min-h-[52px] items-center justify-between rounded-lg bg-sindhu-terracotta px-5 py-3 text-sindhu-charcoal"
           >
             <span className="flex items-center gap-2 text-xs font-semibold tracking-wide">
               <ShoppingBag size={18} />
@@ -324,7 +324,7 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
       {itemCount > 0 && (
         <button
           onClick={() => setCartOpen(true)}
-          className="fixed bottom-8 right-8 z-40 hidden min-h-[56px] items-center gap-3 rounded-lg bg-sindhu-gold px-6 py-3 font-semibold text-sindhu-charcoal shadow-lg md:flex"
+          className="fixed bottom-8 right-8 z-40 hidden min-h-[56px] items-center gap-3 rounded-lg bg-sindhu-terracotta px-6 py-3 font-semibold text-sindhu-charcoal shadow-lg md:flex"
         >
           <ShoppingBag size={18} />
           {itemCount} items · {formatPrice(total)}
@@ -347,14 +347,14 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
               transition={{ type: "spring", damping: 28, stiffness: 300 }}
-              className="fixed bottom-0 left-0 right-0 z-50 flex max-h-[92dvh] flex-col bg-sindhu-smoke md:bottom-auto md:left-auto md:right-0 md:top-0 md:h-full md:max-h-none md:w-full md:max-w-md"
+              className="fixed bottom-0 left-0 right-0 z-50 flex max-h-[92dvh] flex-col bg-sindhu-bg-alt md:bottom-auto md:left-auto md:right-0 md:top-0 md:h-full md:max-h-none md:w-full md:max-w-md"
               style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
             >
-              <div className="flex items-center justify-between border-b border-sindhu-gold/10 px-4 py-4">
-                <h2 className="font-display text-xl text-sindhu-cream">Your Order</h2>
+              <div className="flex items-center justify-between border-b border-sindhu-border px-4 py-4">
+                <h2 className="font-display text-xl text-sindhu-text">Your Order</h2>
                 <button
                   onClick={() => setCartOpen(false)}
-                  className="touch-target flex items-center justify-center text-sindhu-cream"
+                  className="touch-target flex items-center justify-center text-sindhu-text"
                   aria-label="Close cart"
                 >
                   <X size={22} />
@@ -363,7 +363,7 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
 
               <div className="flex-1 overflow-y-auto px-4 py-4">
                 {lines.length === 0 ? (
-                  <p className="py-8 text-center text-sm text-sindhu-cream/40">
+                  <p className="py-8 text-center text-sm text-sindhu-text-light/70">
                     Add biryanis from the menu above 👆
                   </p>
                 ) : (
@@ -374,8 +374,8 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
                         className="flex items-center justify-between border-b border-white/5 pb-3"
                       >
                         <div>
-                          <p className="text-sm text-sindhu-cream">{item.name}</p>
-                          <p className="text-xs text-sindhu-gold">
+                          <p className="text-sm text-sindhu-text">{item.name}</p>
+                          <p className="text-xs text-sindhu-terracotta">
                             {formatPrice(item.price)} × {quantity}
                           </p>
                         </div>
@@ -400,11 +400,11 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
                 )}
 
                 {lines.length > 0 && (
-                  <form onSubmit={handleSubmit} className="mt-6 space-y-4 border-t border-sindhu-gold/10 pt-6">
+                  <form onSubmit={handleSubmit} className="mt-6 space-y-4 border-t border-sindhu-border pt-6">
                     {error && <p className="text-sm text-red-400">{error}</p>}
 
                     <div>
-                      <label className="mb-1 block text-[10px] tracking-widest text-sindhu-cream/40">NAME</label>
+                      <label className="mb-1 block text-[10px] tracking-widest text-sindhu-text-light/70">NAME</label>
                       <input
                         required
                         value={form.name}
@@ -415,7 +415,7 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
                       />
                     </div>
                     <div>
-                      <label className="mb-1 block text-[10px] tracking-widest text-sindhu-cream/40">PHONE</label>
+                      <label className="mb-1 block text-[10px] tracking-widest text-sindhu-text-light/70">PHONE</label>
                       <input
                         type="tel"
                         required
@@ -427,7 +427,7 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
                       />
                     </div>
                     <div>
-                      <label className="mb-1 block text-[10px] tracking-widest text-sindhu-cream/40">
+                      <label className="mb-1 block text-[10px] tracking-widest text-sindhu-text-light/70">
                         EMAIL (OPTIONAL)
                       </label>
                       <input
@@ -447,8 +447,8 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
                           onClick={() => setForm({ ...form, type: t })}
                           className={`min-h-[44px] rounded-lg text-[10px] font-medium tracking-widest ${
                             form.type === t
-                              ? "bg-sindhu-gold text-sindhu-charcoal"
-                              : "border border-white/10 text-sindhu-cream/60"
+                              ? "bg-sindhu-terracotta text-sindhu-charcoal"
+                              : "border border-white/10 text-sindhu-text-light"
                           }`}
                         >
                           {t === "delivery" ? "DELIVERY" : "PICKUP"}
@@ -459,7 +459,7 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
                     {form.type === "delivery" && (
                       <>
                         <div>
-                          <label className="mb-2 block text-[10px] tracking-widest text-sindhu-cream/40">
+                          <label className="mb-2 block text-[10px] tracking-widest text-sindhu-text-light/70">
                             QUICK AREA
                           </label>
                           <div className="flex flex-wrap gap-2">
@@ -473,7 +473,7 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
                                     address: f.address ? f.address : area + " — ",
                                   }))
                                 }
-                                className="rounded-full border border-sindhu-gold/25 px-3 py-1.5 text-[10px] text-sindhu-gold active:bg-sindhu-gold/20"
+                                className="rounded-full border border-sindhu-gold/25 px-3 py-1.5 text-[10px] text-sindhu-terracotta active:bg-sindhu-terracotta/20"
                               >
                                 <MapPin size={10} className="mr-1 inline" />
                                 {area}
@@ -482,7 +482,7 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
                           </div>
                         </div>
                         <div>
-                          <label className="mb-1 block text-[10px] tracking-widest text-sindhu-cream/40">
+                          <label className="mb-1 block text-[10px] tracking-widest text-sindhu-text-light/70">
                             FULL ADDRESS / HOSTEL / FLAT
                           </label>
                           <textarea
@@ -490,7 +490,7 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
                             value={form.address}
                             onChange={(e) => setForm({ ...form, address: e.target.value })}
                             rows={2}
-                            className="w-full resize-none border-b border-white/10 bg-transparent py-3 text-base text-sindhu-cream outline-none focus:border-sindhu-gold md:text-sm"
+                            className="w-full resize-none border-b border-white/10 bg-transparent py-3 text-base text-sindhu-text outline-none focus:border-sindhu-gold md:text-sm"
                             placeholder="e.g. VIT-AP Boys Hostel, Block B, Room 214"
                           />
                         </div>
@@ -498,26 +498,26 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
                     )}
 
                     <div>
-                      <label className="mb-1 block text-[10px] tracking-widest text-sindhu-cream/40">
+                      <label className="mb-1 block text-[10px] tracking-widest text-sindhu-text-light/70">
                         NOTES (spice level, extra raita…)
                       </label>
                       <textarea
                         value={form.notes}
                         onChange={(e) => setForm({ ...form, notes: e.target.value })}
                         rows={2}
-                        className="w-full resize-none border-b border-white/10 bg-transparent py-3 text-base text-sindhu-cream outline-none focus:border-sindhu-gold md:text-sm"
+                        className="w-full resize-none border-b border-white/10 bg-transparent py-3 text-base text-sindhu-text outline-none focus:border-sindhu-gold md:text-sm"
                       />
                     </div>
 
-                    <div className="flex items-center justify-between rounded-lg bg-sindhu-maroon/20 px-4 py-3">
-                      <span className="text-xs tracking-widest text-sindhu-cream/60">TOTAL</span>
-                      <span className="text-2xl font-bold text-sindhu-gold">{formatPrice(total)}</span>
+                    <div className="flex items-center justify-between rounded-lg bg-white/80 px-4 py-3">
+                      <span className="text-xs tracking-widest text-sindhu-text-light">TOTAL</span>
+                      <span className="text-2xl font-bold text-sindhu-terracotta">{formatPrice(total)}</span>
                     </div>
 
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="w-full min-h-[52px] rounded-lg bg-sindhu-gold py-4 text-sm font-bold tracking-wide text-sindhu-charcoal disabled:opacity-50"
+                      className="w-full min-h-[52px] rounded-lg bg-sindhu-terracotta py-4 text-sm font-bold tracking-wide text-sindhu-charcoal disabled:opacity-50"
                     >
                       {submitting ? "PLACING ORDER..." : "PLACE ORDER 🍛"}
                     </button>

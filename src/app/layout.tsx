@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Outfit } from "next/font/google";
+import { Cormorant_Garamond, Outfit, Yatra_One } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
 import { CartProvider } from "@/context/CartContext";
 import { getSiteSettings } from "@/lib/cms";
@@ -17,6 +17,13 @@ const outfit = Outfit({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
   variable: "--font-outfit",
+  display: "swap",
+});
+
+const yatra = Yatra_One({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-yatra",
   display: "swap",
 });
 
@@ -40,7 +47,7 @@ export default async function RootLayout({
   const jsonLd = buildRestaurantJsonLd(site);
 
   return (
-    <html lang="en" className={`${cormorant.variable} ${outfit.variable}`}>
+    <html lang="en" className={`${cormorant.variable} ${outfit.variable} ${yatra.variable}`}>
       <head>
         <script
           type="application/ld+json"

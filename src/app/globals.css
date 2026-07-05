@@ -45,11 +45,11 @@
   }
 
   .gold-gradient-text {
-    @apply bg-gradient-to-r from-sindhu-gold-light via-sindhu-gold to-sindhu-gold-dark bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-sindhu-saffron via-sindhu-terracotta to-sindhu-terracotta bg-clip-text text-transparent;
   }
 
   .ornament-line {
-    @apply h-px w-16 bg-gradient-to-r from-transparent via-sindhu-gold to-transparent;
+    @apply h-px w-16 bg-gradient-to-r from-transparent via-sindhu-terracotta to-transparent;
   }
 
   .glass-card {
@@ -78,11 +78,11 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1814;
+  background: #FAFAFA;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c9a962;
+  background: #D9734E;
   border-radius: 3px;
 }
 

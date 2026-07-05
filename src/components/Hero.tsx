@@ -24,11 +24,11 @@ export default function Hero() {
         className="absolute inset-0"
       >
         <img
-          src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?w=1920&q=80"
           alt="Sindhu Biryani"
-          className="h-full w-full object-cover opacity-60"
+          className="h-full w-full object-cover opacity-90"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-sindhu-bg-alt/90 via-sindhu-bg/70 to-sindhu-bg" />
+        <div className="absolute inset-0 bg-gradient-to-b from-sindhu-bg/20 via-sindhu-bg/50 to-sindhu-bg" />
       </motion.div>
 
       <motion.div
@@ -62,7 +62,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="font-display text-5xl font-bold leading-none tracking-wide text-sindhu-text sm:text-6xl md:text-8xl lg:text-9xl"
+          className="font-yatra text-5xl leading-none tracking-wider text-sindhu-text sm:text-6xl md:text-8xl lg:text-9xl drop-shadow-sm"
         >
           SINDHU
         </motion.h1>

@@ -36,6 +36,7 @@ const config: Config = {
       fontFamily: {
         display: ["var(--font-cormorant)", "Georgia", "serif"],
         body: ["var(--font-outfit)", "system-ui", "sans-serif"],
+        yatra: ["var(--font-yatra)", "serif"],
       },
       animation: {
         "fade-up": "fadeUp 1s ease-out forwards",

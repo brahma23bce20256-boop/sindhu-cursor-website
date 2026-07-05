@@ -21,18 +21,18 @@ export default function OrderPromo({ categories }: OrderPromoProps) {
       <div className="relative mx-auto max-w-7xl">
         <div className="mb-10 text-center md:mb-14">
           <Reveal>
-            <p className="mb-3 text-xs tracking-[0.35em] text-sindhu-saffron">
+            <p className="mb-3 text-xs tracking-[0.35em] text-sindhu-terracotta">
               ONE BIRYANI · NOW A FULL MENU
             </p>
           </Reveal>
           <Reveal delay={0.1}>
-            <h2 className="font-display text-4xl font-light text-sindhu-cream md:text-6xl">
+            <h2 className="font-display text-4xl font-light text-sindhu-text md:text-6xl">
               Biryani First.{" "}
               <span className="gold-gradient-text">Everything Else Next.</span>
             </h2>
           </Reveal>
           <Reveal delay={0.2}>
-            <p className="mx-auto mt-5 max-w-lg text-sm font-light leading-relaxed text-sindhu-cream/55">
+            <p className="mx-auto mt-5 max-w-lg text-sm font-light leading-relaxed text-sindhu-text/55">
               We began with a single biryani that VIT-AP students couldn&apos;t stop
               ordering. Today — biryanis, starters, pure veg, and more. All on one
               order page.
@@ -48,12 +48,12 @@ export default function OrderPromo({ categories }: OrderPromoProps) {
           ].map(({ icon: Icon, label, sub }, i) => (
             <Reveal key={label} delay={i * 0.08}>
               <div className="glass-card flex items-center gap-4 p-4 md:p-5">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-sindhu-gold/15 text-sindhu-gold">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-sindhu-terracotta/15 text-sindhu-terracotta">
                   <Icon size={20} />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-sindhu-cream">{label}</p>
-                  <p className="text-xs text-sindhu-cream/40">{sub}</p>
+                  <p className="text-sm font-medium text-sindhu-text">{label}</p>
+                  <p className="text-xs text-sindhu-text-light/70">{sub}</p>
                 </div>
               </div>
             </Reveal>
@@ -64,14 +64,14 @@ export default function OrderPromo({ categories }: OrderPromoProps) {
           <div className="mb-10 grid gap-3 sm:grid-cols-3">
             {highlights.map((item, i) => (
               <Reveal key={item.id} delay={i * 0.06}>
-                <div className="border border-sindhu-gold/15 bg-sindhu-smoke/60 p-4 md:p-5">
+                <div className="border border-sindhu-gold/15 bg-sindhu-bg-alt/60 p-4 md:p-5">
                   <div className="flex items-start justify-between gap-2">
-                    <h3 className="font-display text-lg text-sindhu-cream">{item.name}</h3>
-                    <span className="shrink-0 rounded-full bg-sindhu-gold/20 px-2 py-0.5 text-xs font-medium text-sindhu-gold">
+                    <h3 className="font-display text-lg text-sindhu-text">{item.name}</h3>
+                    <span className="shrink-0 rounded-full bg-sindhu-terracotta/20 px-2 py-0.5 text-xs font-medium text-sindhu-terracotta">
                       {formatPrice(item.price)}
                     </span>
                   </div>
-                  <p className="mt-1 text-xs leading-relaxed text-sindhu-cream/45">
+                  <p className="mt-1 text-xs leading-relaxed text-sindhu-text/45">
                     {item.description}
                   </p>
                 </div>
@@ -84,12 +84,12 @@ export default function OrderPromo({ categories }: OrderPromoProps) {
           <div className="flex flex-col items-center gap-4">
             <Link
               href="/order"
-              className="animate-pulse-glow flex w-full max-w-md min-h-[52px] items-center justify-center gap-2 bg-sindhu-gold px-8 py-4 text-sm font-semibold tracking-wide text-sindhu-charcoal active:bg-sindhu-gold-light md:hover:bg-sindhu-gold-light"
+              className="animate-pulse-glow flex w-full max-w-md min-h-[52px] items-center justify-center gap-2 bg-sindhu-terracotta px-8 py-4 text-sm font-semibold tracking-wide text-sindhu-charcoal active:bg-sindhu-terracotta-light md:hover:bg-sindhu-terracotta-light"
             >
               BROWSE MENU & ORDER
               <ArrowRight size={16} />
             </Link>
-            <p className="text-center text-[11px] tracking-wide text-sindhu-cream/35">
+            <p className="text-center text-[11px] tracking-wide text-sindhu-text/35">
               Delivery to VIT-AP · Mandadam · Amaravati
             </p>
           </div>

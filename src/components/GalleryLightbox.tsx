@@ -58,7 +58,7 @@ export default function GalleryLightbox({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[100] flex flex-col bg-sindhu-charcoal/98 backdrop-blur-xl"
+          className="fixed inset-0 z-[100] flex flex-col bg-white/98 backdrop-blur-xl"
           style={{
             paddingTop: "env(safe-area-inset-top)",
             paddingBottom: "env(safe-area-inset-bottom)",
@@ -68,12 +68,12 @@ export default function GalleryLightbox({
           aria-label={current.alt}
         >
           <div className="flex items-center justify-between px-4 py-3">
-            <span className="text-xs tracking-widest text-sindhu-cream/50">
+            <span className="text-xs tracking-widest text-sindhu-text/50">
               {(activeIndex ?? 0) + 1} / {images.length}
             </span>
             <button
               onClick={onClose}
-              className="touch-target flex items-center justify-center text-sindhu-cream"
+              className="touch-target flex items-center justify-center text-sindhu-text"
               aria-label="Close gallery"
             >
               <X size={24} />
@@ -95,7 +95,7 @@ export default function GalleryLightbox({
           >
             <button
               onClick={goPrev}
-              className="absolute left-2 z-10 hidden touch-target items-center justify-center rounded-full border border-white/10 text-sindhu-cream md:flex"
+              className="absolute left-2 z-10 hidden touch-target items-center justify-center rounded-full border border-white/10 text-sindhu-text md:flex"
               aria-label="Previous image"
             >
               <ChevronLeft size={20} />
@@ -120,7 +120,7 @@ export default function GalleryLightbox({
 
             <button
               onClick={goNext}
-              className="absolute right-2 z-10 hidden touch-target items-center justify-center rounded-full border border-white/10 text-sindhu-cream md:flex"
+              className="absolute right-2 z-10 hidden touch-target items-center justify-center rounded-full border border-white/10 text-sindhu-text md:flex"
               aria-label="Next image"
             >
               <ChevronRight size={20} />
@@ -128,10 +128,10 @@ export default function GalleryLightbox({
           </div>
 
           <div className="px-4 py-4 text-center">
-            <p className="font-display text-lg text-sindhu-cream md:text-xl">
+            <p className="font-display text-lg text-sindhu-text md:text-xl">
               {current.caption ?? current.alt}
             </p>
-            <p className="mt-3 text-[10px] tracking-widest text-sindhu-cream/30 md:hidden">
+            <p className="mt-3 text-[10px] tracking-widest text-sindhu-text/30 md:hidden">
               SWIPE TO NAVIGATE
             </p>
           </div>

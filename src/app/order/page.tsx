@@ -28,20 +28,20 @@ export default async function OrderPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-12">
           <Link
             href="/"
-            className="mb-5 inline-flex min-h-[44px] items-center gap-2 text-xs tracking-widest text-sindhu-cream/50 active:text-sindhu-gold md:hover:text-sindhu-gold"
+            className="mb-5 inline-flex min-h-[44px] items-center gap-2 text-xs tracking-widest text-sindhu-text/50 active:text-sindhu-terracotta md:hover:text-sindhu-terracotta"
           >
             <ArrowLeft size={14} />
             BACK TO HOME
           </Link>
 
           <div className="rounded-xl border border-sindhu-gold/15 bg-gradient-to-br from-sindhu-maroon/30 to-sindhu-smoke/80 p-5 sm:p-8">
-            <p className="mb-2 text-xs tracking-[0.35em] text-sindhu-saffron">
+            <p className="mb-2 text-xs tracking-[0.35em] text-sindhu-terracotta">
               MENU & ORDER
             </p>
-            <h1 className="font-display text-3xl font-light text-sindhu-cream sm:text-4xl md:text-5xl">
+            <h1 className="font-display text-3xl font-light text-sindhu-text sm:text-4xl md:text-5xl">
               Pick Your <span className="gold-gradient-text">Biryani</span> & More
             </h1>
-            <p className="mt-3 max-w-xl text-sm leading-relaxed text-sindhu-cream/55">
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-sindhu-text/55">
               Full menu below — tap + to add items. Delivery to{" "}
               {site.serviceAreas?.slice(0, 3).join(", ") ?? "VIT-AP & Amaravati"}.
             </p>
@@ -49,7 +49,7 @@ export default async function OrderPage() {
               {(site.serviceAreas ?? ["VIT-AP", "Mandadam", "Amaravati"]).map((area) => (
                 <span
                   key={area}
-                  className="rounded-full border border-sindhu-gold/20 bg-sindhu-gold/10 px-3 py-1 text-[10px] tracking-wide text-sindhu-gold"
+                  className="rounded-full border border-sindhu-gold/20 bg-sindhu-terracotta/10 px-3 py-1 text-[10px] tracking-wide text-sindhu-terracotta"
                 >
                   {area}
                 </span>

@@ -29,12 +29,12 @@ function MarqueeBanner() {
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
 
   return (
-    <div ref={ref} className="overflow-hidden border-y border-sindhu-gold/10 bg-sindhu-maroon/20 py-4 md:py-5">
+    <div ref={ref} className="overflow-hidden border-y border-sindhu-border bg-white/80 py-4 md:py-5">
       <motion.div style={{ x }} className="flex whitespace-nowrap">
         {Array.from({ length: 4 }).map((_, i) => (
           <span
             key={i}
-            className="mx-4 font-display text-lg font-light tracking-[0.15em] text-sindhu-gold/30 sm:mx-8 sm:text-2xl md:text-4xl"
+            className="mx-4 font-display text-lg font-light tracking-[0.15em] text-sindhu-terracotta/30 sm:mx-8 sm:text-2xl md:text-4xl"
           >
             {text}
           </span>
@@ -61,7 +61,7 @@ function Testimonials() {
   return (
     <section className="section-padding relative">
       <div className="mx-auto max-w-7xl">
-        <p className="mb-8 text-center text-xs tracking-[0.35em] text-sindhu-saffron">
+        <p className="mb-8 text-center text-xs tracking-[0.35em] text-sindhu-terracotta">
           WHAT STUDENTS SAY
         </p>
         <div className="grid gap-6 md:grid-cols-2 md:gap-10">
@@ -72,15 +72,15 @@ function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: i * 0.15 }}
-              className="glass-card border-sindhu-gold/10 p-6 sm:p-8"
+              className="glass-card border-sindhu-border p-6 sm:p-8"
             >
-              <div className="mb-4 font-display text-4xl text-sindhu-gold/25">&ldquo;</div>
-              <p className="text-base font-light leading-relaxed text-sindhu-cream/80 md:text-lg">
+              <div className="mb-4 font-display text-4xl text-sindhu-terracotta/25">&ldquo;</div>
+              <p className="text-base font-light leading-relaxed text-sindhu-text md:text-lg">
                 {t.quote}
               </p>
               <div className="mt-6 border-t border-white/10 pt-5">
-                <p className="text-sm font-medium text-sindhu-gold">{t.author}</p>
-                <p className="mt-1 text-xs text-sindhu-cream/40">{t.role}</p>
+                <p className="text-sm font-medium text-sindhu-terracotta">{t.author}</p>
+                <p className="mt-1 text-xs text-sindhu-text-light/70">{t.role}</p>
               </div>
             </motion.div>
           ))}
