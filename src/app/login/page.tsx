@@ -50,6 +50,11 @@ export default function UserLogin() {
     }
   };
 
+  const handleGuestLogin = () => {
+    document.cookie = "guest_access=true; path=/; max-age=86400"; // 24 hours
+    router.push("/orders");
+  };
+
   const handleVerifyOtp = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!otp) return;
@@ -142,12 +147,13 @@ export default function UserLogin() {
                 <div className="flex-grow border-t border-sindhu-border/50"></div>
               </div>
 
-              <Link
-                href="/orders"
+              <button
+                type="button"
+                onClick={handleGuestLogin}
                 className="w-full block text-center bg-white border-2 border-sindhu-border/50 text-sindhu-text-light font-bold tracking-widest text-sm py-3.5 rounded-2xl hover:border-sindhu-terracotta hover:text-sindhu-terracotta transition-colors"
               >
                 CONTINUE AS GUEST
-              </Link>
+              </button>
             </motion.form>
           ) : (
             <motion.form
