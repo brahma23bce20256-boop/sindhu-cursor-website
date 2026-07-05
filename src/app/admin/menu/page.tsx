@@ -37,7 +37,7 @@ export default async function AdminMenu() {
         {categories.map(category => (
           <div key={category.id} className="bg-white p-6 rounded-2xl border border-sindhu-border/30 shadow-sm">
             <h2 className="text-2xl font-display font-bold text-sindhu-terracotta mb-6 border-b border-sindhu-border/30 pb-4">
-              {category.name}
+              {category.title}
             </h2>
             
             <div className="space-y-4">
