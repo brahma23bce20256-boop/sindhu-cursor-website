@@ -1,6 +1,4 @@
 import { getMenu } from "@/lib/cms";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import SwiggyMenu from "@/components/SwiggyMenu";
 import { getSiteSettings } from "@/lib/cms";
 import { getServerSession } from "next-auth";
@@ -21,11 +19,9 @@ export default async function OrdersPage() {
 
   return (
     <main className="min-h-screen bg-sindhu-bg flex flex-col pt-20">
-      <Navbar />
       <div className="flex-grow">
         <SwiggyMenu categories={menu.categories} />
       </div>
-      <Footer site={site} />
     </main>
   );
 }

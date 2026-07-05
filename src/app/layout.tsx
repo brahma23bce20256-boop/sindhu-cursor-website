@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Outfit, Yatra_One } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
 import { CartProvider } from "@/context/CartContext";
+import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import NextAuthProvider from "@/components/NextAuthProvider";
 import { OfflinePopup } from "@/components/OfflinePopup";
@@ -61,6 +62,7 @@ export default async function RootLayout({
         <NextAuthProvider>
           <CartProvider>
             <SmoothScroll>
+              <Navbar />
               {children}
               <OfflinePopup />
               <Footer />

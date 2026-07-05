@@ -6,6 +6,7 @@ export function middleware(request: NextRequest) {
 
   // Allow public assets, APIs, admin, and auth routes
   if (
+    pathname === '/' ||
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
     pathname.startsWith('/favicon.ico') ||

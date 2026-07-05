@@ -4,8 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ShoppingBag } from "lucide-react";
+import { Menu, X, ShoppingBag, User } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { useSession, signOut } from "next-auth/react";
 
 const homeLinks = [
   { label: "About", href: "/#about" },
@@ -23,6 +24,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { lines } = useCart();
+  const { data: session } = useSession();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -99,6 +101,24 @@ export default function Navbar() {
                 </span>
               )}
             </Link>
+
+            {session?.user ? (
+              <button
+                onClick={() => signOut({ callbackUrl: '/' })}
+                className="relative flex items-center gap-2 rounded-xl border-2 border-sindhu-border/50 bg-white px-5 py-2 text-xs font-bold tracking-widest text-sindhu-text transition-all hover:border-sindhu-terracotta hover:text-sindhu-terracotta"
+              >
+                <User size={16} />
+                LOGOUT
+              </button>
+            ) : (
+              <Link
+                href="/login"
+                className="relative flex items-center gap-2 rounded-xl border-2 border-sindhu-border/50 bg-white px-5 py-2 text-xs font-bold tracking-widest text-sindhu-text transition-all hover:border-sindhu-terracotta hover:text-sindhu-terracotta"
+              >
+                <User size={16} />
+                LOGIN
+              </Link>
+            )}
           </div>
 
           <div className="flex items-center gap-3 md:hidden">
@@ -113,6 +133,22 @@ export default function Navbar() {
                 </span>
               )}
             </Link>
+            
+            {session?.user ? (
+              <button
+                onClick={() => signOut({ callbackUrl: '/' })}
+                className="flex items-center justify-center rounded-full p-2 text-sindhu-text bg-sindhu-border/30 hover:bg-sindhu-border/50"
+              >
+                <User size={20} />
+              </button>
+            ) : (
+              <Link
+                href="/login"
+                className="flex items-center justify-center rounded-full p-2 text-sindhu-text bg-sindhu-border/30 hover:bg-sindhu-border/50"
+              >
+                <User size={20} />
+              </Link>
+            )}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="touch-target flex items-center justify-center text-sindhu-text"

@@ -2,7 +2,6 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import OrderPromo from "@/components/OrderPromo";
@@ -10,7 +9,6 @@ import Experience from "@/components/Experience";
 import Gallery from "@/components/Gallery";
 import LocationMap from "@/components/LocationMap";
 import Reservations from "@/components/Reservations";
-import Footer from "@/components/Footer";
 import type { GalleryImage, MenuCategory, SiteSettings } from "@/lib/cms/types";
 
 interface HomePageClientProps {
@@ -97,7 +95,6 @@ export default function HomePageClient({
 }: HomePageClientProps) {
   return (
     <main>
-      <Navbar />
       <Hero />
       <MarqueeBanner />
       <About stats={site.stats} />
@@ -108,7 +105,6 @@ export default function HomePageClient({
       <Testimonials />
       <LocationMap site={site} />
       <Reservations site={site} />
-      <Footer site={site} />
     </main>
   );
 }

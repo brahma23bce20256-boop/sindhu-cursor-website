@@ -87,10 +87,6 @@ function LoginContent() {
       {/* Background decorations */}
       <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-sindhu-terracotta/10 rounded-full blur-3xl" />
       <div className="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-sindhu-saffron/10 rounded-full blur-3xl" />
-      
-      <Link href="/" className="absolute top-8 left-8 flex items-center gap-2 text-sindhu-text-light hover:text-sindhu-terracotta transition-colors font-bold text-sm tracking-widest z-10">
-        <ChevronLeft size={16} /> BACK TO HOME
-      </Link>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
