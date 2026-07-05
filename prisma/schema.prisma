@@ -52,7 +52,8 @@ model Order {
   id          String      @id @default(cuid())
   userId      String
   user        User        @relation(fields: [userId], references: [id])
-  status      OrderStatus @default(PENDING)
+  status      OrderStatus @default(PENDING_CONFIRMATION)
+  tokenNumber Int         @unique @default(autoincrement())
   totalAmount Float
   items       OrderItem[]
   createdAt   DateTime    @default(now())
@@ -60,6 +61,7 @@ model Order {
 }
 
 enum OrderStatus {
+  PENDING_CONFIRMATION
   PENDING
   PREPARING
   DELIVERED

@@ -9,6 +9,7 @@ import {
   useState,
 } from "react";
 import type { MenuItem } from "@/lib/cms/types";
+import useSWR from "swr";
 
 export interface CartLine {
   item: MenuItem;
@@ -23,7 +24,11 @@ interface CartContextValue {
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
+  isOnline: boolean;
+  offlineMessage: string;
 }
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const CartContext = createContext<CartContextValue | null>(null);
 const STORAGE_KEY = "sindhu-cart";
@@ -31,6 +36,11 @@ const STORAGE_KEY = "sindhu-cart";
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [lines, setLines] = useState<CartLine[]>([]);
   const [hydrated, setHydrated] = useState(false);
+
+  const { data: settings } = useSWR('/api/settings', fetcher, { 
+    refreshInterval: 5000,
+    fallbackData: { isOnline: true, offlineMessage: "" }
+  });
 
   useEffect(() => {
     try {
@@ -95,6 +105,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         removeItem,
         updateQuantity,
         clearCart,
+        isOnline: settings?.isOnline ?? true,
+        offlineMessage: settings?.offlineMessage ?? "",
       }}
     >
       {children}

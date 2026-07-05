@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Minus, Plus, ShoppingBag, X, MapPin } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/context/CartContext";
 import type { MenuCategory, MenuTag, SiteSettings } from "@/lib/cms/types";
@@ -20,21 +21,15 @@ interface OrderPageClientProps {
 }
 
 export default function OrderPageClient({ categories, site }: OrderPageClientProps) {
-  const { lines, itemCount, total, addItem, updateQuantity, clearCart } = useCart();
+  const router = useRouter();
+  const { lines, itemCount, total, addItem, updateQuantity, clearCart, isOnline, offlineMessage } = useCart();
   const [cartOpen, setCartOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState(categories[0]?.id ?? "all");
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    type: "delivery" as "pickup" | "delivery",
-    address: "",
-    notes: "",
-  });
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -73,17 +68,17 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!lines.length) return;
+    if (!lines.length || !isOnline) return;
 
     setSubmitting(true);
     setError(null);
 
     try {
-      const res = await fetch("/api/orders", {
+      const res = await fetch("/api/orders/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...form,
+          totalAmount: total,
           items: lines.map((l) => ({
             id: l.item.id,
             name: l.item.name,
@@ -96,14 +91,11 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Order failed");
 
-      setSuccess(data.message);
-      clearCart();
-      setCartOpen(false);
-      setForm({ name: "", email: "", phone: "", type: "delivery", address: "", notes: "" });
+      // Redirect to the 30-sec checkout preview page
+      router.push(`/checkout/${data.orderId}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
-    } finally {
-      setSubmitting(false);
+      setSubmitting(false); // Only stop loading if error. If success, we are redirecting.
     }
   };
 
@@ -402,124 +394,32 @@ export default function OrderPageClient({ categories, site }: OrderPageClientPro
                 {lines.length > 0 && (
                   <form onSubmit={handleSubmit} className="mt-6 space-y-4 border-t border-sindhu-border pt-6">
                     {error && <p className="text-sm text-red-400">{error}</p>}
+                    {!isOnline && <p className="text-sm text-red-400">{offlineMessage}</p>}
 
-                    <div>
-                      <label className="mb-1 block text-[10px] tracking-widest text-sindhu-text-light/70">NAME</label>
-                      <input
-                        required
-                        value={form.name}
-                        onChange={(e) => setForm({ ...form, name: e.target.value })}
-                        className={inputClass}
-                        placeholder="Your name"
-                        autoComplete="name"
-                      />
-                    </div>
-                    <div>
-                      <label className="mb-1 block text-[10px] tracking-widest text-sindhu-text-light/70">PHONE</label>
-                      <input
-                        type="tel"
-                        required
-                        value={form.phone}
-                        onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                        className={inputClass}
-                        placeholder="+91 XXXXX XXXXX"
-                        autoComplete="tel"
-                      />
-                    </div>
-                    <div>
-                      <label className="mb-1 block text-[10px] tracking-widest text-sindhu-text-light/70">
-                        EMAIL (OPTIONAL)
+                    <div className="space-y-3">
+                      <h3 className="text-sm font-semibold text-sindhu-text">Payment Method</h3>
+                      <label className="flex cursor-pointer items-center justify-between rounded-lg border border-sindhu-terracotta bg-sindhu-terracotta/10 p-3">
+                        <span className="text-sm font-medium text-sindhu-terracotta">Cash on Delivery</span>
+                        <input type="radio" name="payment" value="cod" defaultChecked className="text-sindhu-terracotta" />
                       </label>
-                      <input
-                        type="email"
-                        value={form.email}
-                        onChange={(e) => setForm({ ...form, email: e.target.value })}
-                        className={inputClass}
-                        autoComplete="email"
-                      />
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-2">
-                      {(["delivery", "pickup"] as const).map((t) => (
-                        <button
-                          key={t}
-                          type="button"
-                          onClick={() => setForm({ ...form, type: t })}
-                          className={`min-h-[44px] rounded-lg text-[10px] font-medium tracking-widest ${
-                            form.type === t
-                              ? "bg-sindhu-terracotta text-sindhu-charcoal"
-                              : "border border-white/10 text-sindhu-text-light"
-                          }`}
-                        >
-                          {t === "delivery" ? "DELIVERY" : "PICKUP"}
-                        </button>
-                      ))}
-                    </div>
-
-                    {form.type === "delivery" && (
-                      <>
-                        <div>
-                          <label className="mb-2 block text-[10px] tracking-widest text-sindhu-text-light/70">
-                            QUICK AREA
-                          </label>
-                          <div className="flex flex-wrap gap-2">
-                            {deliveryPresets.map((area) => (
-                              <button
-                                key={area}
-                                type="button"
-                                onClick={() =>
-                                  setForm((f) => ({
-                                    ...f,
-                                    address: f.address ? f.address : area + " — ",
-                                  }))
-                                }
-                                className="rounded-full border border-sindhu-gold/25 px-3 py-1.5 text-[10px] text-sindhu-terracotta active:bg-sindhu-terracotta/20"
-                              >
-                                <MapPin size={10} className="mr-1 inline" />
-                                {area}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                        <div>
-                          <label className="mb-1 block text-[10px] tracking-widest text-sindhu-text-light/70">
-                            FULL ADDRESS / HOSTEL / FLAT
-                          </label>
-                          <textarea
-                            required
-                            value={form.address}
-                            onChange={(e) => setForm({ ...form, address: e.target.value })}
-                            rows={2}
-                            className="w-full resize-none border-b border-white/10 bg-transparent py-3 text-base text-sindhu-text outline-none focus:border-sindhu-gold md:text-sm"
-                            placeholder="e.g. VIT-AP Boys Hostel, Block B, Room 214"
-                          />
-                        </div>
-                      </>
-                    )}
-
-                    <div>
-                      <label className="mb-1 block text-[10px] tracking-widest text-sindhu-text-light/70">
-                        NOTES (spice level, extra raita…)
+                      
+                      <label className="flex cursor-not-allowed items-center justify-between rounded-lg border border-white/5 bg-black/20 p-3 opacity-60">
+                        <span className="text-sm font-medium text-sindhu-text-light">Prepay online <span className="ml-1 text-[10px] uppercase text-sindhu-gold">(Coming soon)</span></span>
+                        <input type="radio" name="payment" value="online" disabled />
                       </label>
-                      <textarea
-                        value={form.notes}
-                        onChange={(e) => setForm({ ...form, notes: e.target.value })}
-                        rows={2}
-                        className="w-full resize-none border-b border-white/10 bg-transparent py-3 text-base text-sindhu-text outline-none focus:border-sindhu-gold md:text-sm"
-                      />
                     </div>
 
                     <div className="flex items-center justify-between rounded-lg bg-white/80 px-4 py-3">
-                      <span className="text-xs tracking-widest text-sindhu-text-light">TOTAL</span>
+                      <span className="text-xs tracking-widest text-sindhu-text-light">TOTAL TO PAY</span>
                       <span className="text-2xl font-bold text-sindhu-terracotta">{formatPrice(total)}</span>
                     </div>
 
                     <button
                       type="submit"
-                      disabled={submitting}
+                      disabled={submitting || !isOnline}
                       className="w-full min-h-[52px] rounded-lg bg-sindhu-terracotta py-4 text-sm font-bold tracking-wide text-sindhu-charcoal disabled:opacity-50"
                     >
-                      {submitting ? "PLACING ORDER..." : "PLACE ORDER 🍛"}
+                      {submitting ? "PROCESSING..." : "CHECKOUT 🍛"}
                     </button>
                   </form>
                 )}

@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Outfit, Yatra_One } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
 import { CartProvider } from "@/context/CartContext";
+import { Footer } from "@/components/Footer";
 import NextAuthProvider from "@/components/NextAuthProvider";
+import { OfflinePopup } from "@/components/OfflinePopup";
 import { getSiteSettings } from "@/lib/cms";
 import { buildMetadata, buildRestaurantJsonLd } from "@/lib/seo";
 import "./globals.css";
@@ -58,7 +60,11 @@ export default async function RootLayout({
       <body className="font-body grain">
         <NextAuthProvider>
           <CartProvider>
-            <SmoothScroll>{children}</SmoothScroll>
+            <SmoothScroll>
+              {children}
+              <OfflinePopup />
+              <Footer />
+            </SmoothScroll>
           </CartProvider>
         </NextAuthProvider>
       </body>
