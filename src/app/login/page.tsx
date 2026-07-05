@@ -70,7 +70,7 @@ export default function UserLogin() {
         </form>
 
         <p className="mt-6 text-center text-sm font-medium text-sindhu-text-light">
-          Don't have an account? <Link href="/register" className="font-bold text-sindhu-terracotta hover:underline">Sign up</Link>
+          Don&apos;t have an account? <Link href="/register" className="font-bold text-sindhu-terracotta hover:underline">Sign up</Link>
         </p>
       </motion.div>
     </div>
