@@ -1,12 +1,15 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, use } from "react";
 import { useRouter } from "next/navigation";
 import { formatPrice } from "@/lib/cms/types";
 import { useCart } from "@/context/CartContext";
 import { CheckCircle2, Clock, XCircle } from "lucide-react";
 
-export default function CheckoutPreviewPage({ params }: { params: { id: string } }) {
+export default function CheckoutPreviewPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = use(params);
+  const id = resolvedParams.id;
+  
   const router = useRouter();
   const { clearCart } = useCart();
   const [timeLeft, setTimeLeft] = useState(30);
@@ -15,13 +18,13 @@ export default function CheckoutPreviewPage({ params }: { params: { id: string }
 
   useEffect(() => {
     // Fetch order details
-    fetch(`/api/orders/${params.id}`)
+    fetch(`/api/orders/${id}`)
       .then(res => res.json())
       .then(data => {
         if (data && data.order) setOrder(data.order);
       })
       .catch(console.error);
-  }, [params.id]);
+  }, [id]);
 
   const handleCancel = useCallback(async (reason?: string) => {
     try {
@@ -29,7 +32,7 @@ export default function CheckoutPreviewPage({ params }: { params: { id: string }
       await fetch("/api/orders/confirm", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ orderId: params.id, action: "CANCEL" }),
+        body: JSON.stringify({ orderId: id, action: "CANCEL" }),
       });
       if (reason !== "Time expired") {
         router.push("/");
@@ -37,7 +40,7 @@ export default function CheckoutPreviewPage({ params }: { params: { id: string }
     } catch (error) {
       console.error(error);
     }
-  }, [params.id, router]);
+  }, [id, router]);
 
   useEffect(() => {
     if (status !== "pending") return;
@@ -60,7 +63,7 @@ export default function CheckoutPreviewPage({ params }: { params: { id: string }
       await fetch("/api/orders/confirm", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ orderId: params.id, action: "CONFIRM" }),
+        body: JSON.stringify({ orderId: id, action: "CONFIRM" }),
       });
       clearCart();
     } catch (error) {
