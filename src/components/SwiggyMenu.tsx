@@ -128,18 +128,18 @@ export default function SwiggyMenu({ categories }: SwiggyMenuProps) {
                           <div className="mb-1 flex items-center gap-2">
                             <span
                               className={`h-3 w-3 rounded-sm border ${
-                                item.dietary?.includes("Vegetarian")
+                                item.tags?.includes("vegetarian")
                                   ? "border-sindhu-sage bg-sindhu-sage/20"
                                   : "border-red-600 bg-red-100"
                               } flex items-center justify-center`}
                             >
                               <span
                                 className={`h-1.5 w-1.5 rounded-full ${
-                                  item.dietary?.includes("Vegetarian") ? "bg-sindhu-sage" : "bg-red-600"
+                                  item.tags?.includes("vegetarian") ? "bg-sindhu-sage" : "bg-red-600"
                                 }`}
                               />
                             </span>
-                            {item.isSignature && (
+                            {item.tags?.includes("bestseller") && (
                               <span className="rounded bg-sindhu-saffron/20 px-1.5 py-0.5 text-[10px] font-bold text-sindhu-saffron">
                                 BESTSELLER
                               </span>
@@ -153,7 +153,7 @@ export default function SwiggyMenu({ categories }: SwiggyMenuProps) {
                         </div>
                         {item.image && (
                           <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-xl bg-sindhu-bg-alt">
-                            <img src={item.image.url} alt={item.name} className="h-full w-full object-cover" />
+                            <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
                           </div>
                         )}
                       </div>
@@ -221,7 +221,7 @@ export default function SwiggyMenu({ categories }: SwiggyMenuProps) {
                         <div className="font-medium text-sindhu-text flex items-start gap-1">
                           <span
                             className={`mt-1 h-2 w-2 rounded-sm border ${
-                              line.item.dietary?.includes("Vegetarian")
+                              line.item.tags?.includes("vegetarian")
                                 ? "border-sindhu-sage bg-sindhu-sage/20"
                                 : "border-red-600 bg-red-100"
                             } shrink-0`}
