@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 export async function POST(req: Request) {
   try {
@@ -25,25 +27,30 @@ export async function POST(req: Request) {
       }
     }
 
-    // 3. We need a user to tie this order to. Since it's guest checkout (no auth required right now),
-    // we'll either need a guest user or allow orders without users.
-    // Wait, the Prisma schema says `Order` must have `userId`.
-    // Let's create a generic "Guest" user if none exists, or fetch it.
-    let guestUser = await prisma.user.findUnique({ where: { email: "guest@sindhu.com" } });
-    if (!guestUser) {
-      guestUser = await prisma.user.create({
-        data: {
-          email: "guest@sindhu.com",
-          password: "guest_password_placeholder",
-          name: "Guest Customer",
-        }
-      });
+    // 3. Authenticate the user. If they are logged in, use their ID.
+    // Otherwise, use a generic "Guest" user.
+    const session = await getServerSession(authOptions);
+    let orderUserId = "";
+
+    if (session?.user?.id) {
+      orderUserId = session.user.id;
+    } else {
+      let guestUser = await prisma.user.findUnique({ where: { email: "guest@sindhu.com" } });
+      if (!guestUser) {
+        guestUser = await prisma.user.create({
+          data: {
+            email: "guest@sindhu.com",
+            name: "Guest Customer",
+          }
+        });
+      }
+      orderUserId = guestUser.id;
     }
 
     // 4. Create the draft order with PENDING_CONFIRMATION
     const order = await prisma.order.create({
       data: {
-        userId: guestUser.id,
+        userId: orderUserId,
         totalAmount: totalAmount,
         status: "PENDING_CONFIRMATION",
         items: {
