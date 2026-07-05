@@ -43,7 +43,7 @@ export default function OnboardingPage() {
       if (res.ok) {
         // Force session update so the JWT/middleware sees the completed profile
         await update({ name: data.user.name, phoneNumber: data.user.phoneNumber });
-        router.push("/orders");
+        router.push("/");
       } else {
         setError(data.error || "Failed to update profile");
       }
