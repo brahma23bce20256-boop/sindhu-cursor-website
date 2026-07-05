@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
 
 import { useEffect, useRef, useState } from "react";
 import { ShoppingBag, Plus, Minus, Search, ChevronRight } from "lucide-react";

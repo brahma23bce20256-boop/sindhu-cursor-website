@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Outfit, Yatra_One } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
 import { CartProvider } from "@/context/CartContext";
-import { Footer } from "@/components/Footer";
+import Footer from "@/components/Footer";
 import NextAuthProvider from "@/components/NextAuthProvider";
 import { OfflinePopup } from "@/components/OfflinePopup";
 import { getSiteSettings } from "@/lib/cms";

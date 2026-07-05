@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { formatPrice } from "@/lib/cms/types";
 import { useCart } from "@/context/CartContext";
@@ -23,6 +23,22 @@ export default function CheckoutPreviewPage({ params }: { params: { id: string }
       .catch(console.error);
   }, [params.id]);
 
+  const handleCancel = useCallback(async (reason?: string) => {
+    try {
+      setStatus("cancelled");
+      await fetch("/api/orders/confirm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderId: params.id, action: "CANCEL" }),
+      });
+      if (reason !== "Time expired") {
+        router.push("/");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [params.id, router]);
+
   useEffect(() => {
     if (status !== "pending") return;
 
@@ -36,7 +52,7 @@ export default function CheckoutPreviewPage({ params }: { params: { id: string }
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [timeLeft, status]);
+  }, [timeLeft, status, handleCancel]);
 
   const handleConfirm = async () => {
     try {
@@ -47,22 +63,6 @@ export default function CheckoutPreviewPage({ params }: { params: { id: string }
         body: JSON.stringify({ orderId: params.id, action: "CONFIRM" }),
       });
       clearCart();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleCancel = async (reason?: string) => {
-    try {
-      setStatus("cancelled");
-      await fetch("/api/orders/confirm", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ orderId: params.id, action: "CANCEL" }),
-      });
-      if (reason !== "Time expired") {
-        router.push("/");
-      }
     } catch (error) {
       console.error(error);
     }
