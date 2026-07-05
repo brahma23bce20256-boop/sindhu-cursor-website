@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 import { ShoppingBag, Plus, Minus, Search, ChevronRight } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import type { MenuCategory, MenuItem } from "@/lib/cms/types";
@@ -38,41 +37,34 @@ export default function SwiggyMenu({ categories }: SwiggyMenuProps) {
   const scrollToCategory = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
-      const y = el.getBoundingClientRect().top + window.scrollY - 100;
+      // Adjusted offset for mobile vs desktop headers
+      const offset = window.innerWidth < 768 ? 140 : 100;
+      const y = el.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top: y, behavior: "smooth" });
     }
   };
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Search Header */}
-      <div className="mb-8 flex items-center justify-between border-b border-sindhu-border pb-6">
-        <h1 className="text-3xl font-display font-bold text-sindhu-text sm:text-4xl">Order Online</h1>
-        <div className="relative hidden w-64 md:block">
-          <input
-            type="text"
-            placeholder="Search dishes..."
-            className="w-full rounded-full border border-sindhu-border bg-sindhu-bg-alt py-2.5 pl-10 pr-4 text-sm outline-none focus:border-sindhu-terracotta"
-          />
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-sindhu-text-light/50" size={18} />
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-8 md:flex-row md:items-start lg:gap-12">
-        {/* Left Sidebar - Categories (Sticky) */}
-        <div className="hidden md:sticky md:top-24 md:block md:w-56 lg:w-64">
-          <ul className="flex flex-col space-y-1 border-r border-sindhu-border/50 pr-4">
+    <div className="mx-auto max-w-7xl px-0 sm:px-6 lg:px-8 bg-white min-h-[100dvh]">
+      <div className="flex flex-col gap-0 md:flex-row md:items-start lg:gap-10 pt-0 md:pt-10">
+        
+        {/* Left Sidebar - Categories (Sticky on PC) */}
+        <div className="hidden md:sticky md:top-32 md:block md:w-56 lg:w-64 shrink-0 border-r border-sindhu-border/50 h-[calc(100vh-140px)] overflow-y-auto pr-6 scrollbar-none">
+          <ul className="flex flex-col space-y-4">
             {categories.map((cat) => (
               <li key={cat.id}>
                 <button
                   onClick={() => scrollToCategory(cat.id)}
-                  className={`w-full text-left rounded-r-full px-4 py-3 text-sm font-medium transition-colors ${
+                  className={`w-full text-left flex items-center justify-between text-base font-bold transition-all ${
                     activeCategory === cat.id
-                      ? "border-l-4 border-sindhu-terracotta bg-sindhu-terracotta/10 text-sindhu-terracotta"
-                      : "border-l-4 border-transparent text-sindhu-text-light hover:text-sindhu-terracotta"
+                      ? "text-sindhu-terracotta"
+                      : "text-sindhu-text-light hover:text-sindhu-terracotta"
                   }`}
                 >
                   {cat.title}
+                  {activeCategory === cat.id && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-sindhu-terracotta"></span>
+                  )}
                 </button>
               </li>
             ))}
@@ -80,16 +72,16 @@ export default function SwiggyMenu({ categories }: SwiggyMenuProps) {
         </div>
 
         {/* Mobile Category Nav (Sticky Top) */}
-        <div className="sticky top-20 z-40 -mx-4 overflow-x-auto bg-sindhu-bg px-4 py-3 shadow-sm md:hidden scrollbar-none">
-          <div className="flex space-x-2">
+        <div className="sticky top-[72px] z-40 w-full overflow-x-auto bg-white px-4 py-3 shadow-sm md:hidden scrollbar-none border-b border-sindhu-border/50">
+          <div className="flex space-x-3">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => scrollToCategory(cat.id)}
-                className={`whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-medium ${
+                className={`whitespace-nowrap rounded-full px-5 py-2 text-sm font-bold shadow-sm transition-all ${
                   activeCategory === cat.id
-                    ? "bg-sindhu-terracotta text-white"
-                    : "border border-sindhu-border text-sindhu-text-light"
+                    ? "bg-sindhu-terracotta text-white border border-sindhu-terracotta"
+                    : "bg-white border border-sindhu-border text-sindhu-text-light"
                 }`}
               >
                 {cat.title}
@@ -98,8 +90,8 @@ export default function SwiggyMenu({ categories }: SwiggyMenuProps) {
           </div>
         </div>
 
-        {/* Middle Column - Menu Items */}
-        <div className="flex-1 space-y-12 pb-24 md:pb-0">
+        {/* Middle Column - Menu Items (List format) */}
+        <div className="flex-1 w-full max-w-3xl pb-32 md:pb-12 bg-white">
           {categories.map((category) => (
             <section
               key={category.id}
@@ -107,86 +99,84 @@ export default function SwiggyMenu({ categories }: SwiggyMenuProps) {
               ref={(el) => {
                 categoryRefs.current[category.id] = el;
               }}
-              className="scroll-mt-28"
+              className="scroll-mt-40 md:scroll-mt-32 pt-6 md:pt-0"
             >
-              <h2 className="mb-6 text-2xl font-bold text-sindhu-text">{category.title}</h2>
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
+              <h2 className="px-4 md:px-0 mb-2 text-2xl font-bold text-sindhu-text tracking-tight">{category.title}</h2>
+              <div className="flex flex-col divide-y divide-sindhu-border/60">
                 {category.items.map((item) => {
                   const cartLine = lines.find((l) => l.item.id === item.id);
                   const quantity = cartLine ? cartLine.quantity : 0;
 
                   return (
-                    <motion.div
-                      key={item.id}
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-50px" }}
-                      className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-sindhu-border bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
-                    >
-                      <div className="flex justify-between gap-4">
-                        <div className="flex-1">
-                          <div className="mb-1 flex items-center gap-2">
-                            <span
-                              className={`h-3 w-3 rounded-sm border ${
-                                item.tags?.includes("vegetarian")
-                                  ? "border-sindhu-sage bg-sindhu-sage/20"
-                                  : "border-red-600 bg-red-100"
-                              } flex items-center justify-center`}
-                            >
-                              <span
-                                className={`h-1.5 w-1.5 rounded-full ${
-                                  item.tags?.includes("vegetarian") ? "bg-sindhu-sage" : "bg-red-600"
-                                }`}
-                              />
+                    <div key={item.id} className="flex justify-between gap-4 p-4 md:px-0 md:py-10 bg-white group">
+                      {/* Left: Item Info */}
+                      <div className="flex-1 pr-2">
+                        <div className="mb-2 flex items-center gap-2">
+                          {/* Veg/Non-Veg icon matching Swiggy */}
+                          <span className={`flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-sm border-2 ${
+                            item.tags?.includes("vegetarian") ? "border-sindhu-sage" : "border-red-600"
+                          }`}>
+                            <span className={`h-2.5 w-2.5 rounded-full ${
+                              item.tags?.includes("vegetarian") ? "bg-sindhu-sage" : "bg-red-600"
+                            }`} />
+                          </span>
+                          
+                          {/* Bestseller Badge */}
+                          {item.tags?.includes("bestseller") && (
+                            <span className="flex items-center gap-1 text-[11px] font-bold text-[#E56353] tracking-wide uppercase">
+                              <span className="flex h-3 w-3 items-center justify-center rounded-full bg-[#E56353] text-white text-[8px]">★</span>
+                              Bestseller
                             </span>
-                            {item.tags?.includes("bestseller") && (
-                              <span className="rounded bg-sindhu-saffron/20 px-1.5 py-0.5 text-[10px] font-bold text-sindhu-saffron">
-                                BESTSELLER
-                              </span>
-                            )}
-                          </div>
-                          <h3 className="text-base font-bold text-sindhu-text sm:text-lg">{item.name}</h3>
-                          <p className="mt-1 font-medium text-sindhu-text-light">₹{item.price}</p>
-                          <p className="mt-2 line-clamp-2 text-xs text-sindhu-text-light/70 sm:text-sm">
-                            {item.description}
-                          </p>
+                          )}
                         </div>
-                        {item.image && (
-                          <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-xl bg-sindhu-bg-alt">
-                            <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
-                          </div>
-                        )}
+                        <h3 className="text-[17px] font-bold text-sindhu-text md:text-xl leading-snug">{item.name}</h3>
+                        <p className="mt-1 text-[15px] font-semibold text-sindhu-text md:text-lg">₹{item.price}</p>
+                        <p className="mt-3 line-clamp-3 text-[13px] text-sindhu-text-light/70 leading-relaxed md:text-[15px]">
+                          {item.description}
+                        </p>
                       </div>
 
-                      {/* Add Button Area */}
-                      <div className={`mt-4 flex ${item.image ? 'justify-end' : 'justify-start'}`}>
-                        {quantity === 0 ? (
-                          <button
-                            onClick={() => addItem(item)}
-                            className="relative -mt-10 mr-2 flex h-9 w-24 items-center justify-center rounded-lg border border-sindhu-border bg-white font-bold text-sindhu-sage shadow-sm hover:bg-sindhu-bg-alt z-10"
-                          >
-                            ADD
-                            <Plus size={14} className="absolute right-2" />
-                          </button>
+                      {/* Right: Image & Floating Button */}
+                      <div className="relative shrink-0 flex flex-col items-center justify-start mt-2">
+                        {item.image ? (
+                          <div className="relative h-32 w-32 md:h-[156px] md:w-[156px] overflow-hidden rounded-2xl bg-sindhu-bg shadow-[0_4px_12px_rgba(0,0,0,0.05)]">
+                            <img src={item.image} alt={item.name} className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                          </div>
                         ) : (
-                          <div className="relative -mt-10 mr-2 flex h-9 w-24 items-center justify-between rounded-lg border border-sindhu-sage bg-white text-sindhu-sage shadow-sm z-10">
-                            <button
-                              onClick={() => updateQuantity(item.id, quantity - 1)}
-                              className="flex h-full w-1/3 items-center justify-center hover:bg-sindhu-sage/10 rounded-l-lg"
-                            >
-                              <Minus size={16} />
-                            </button>
-                            <span className="font-bold text-sm">{quantity}</span>
-                            <button
-                              onClick={() => updateQuantity(item.id, quantity + 1)}
-                              className="flex h-full w-1/3 items-center justify-center hover:bg-sindhu-sage/10 rounded-r-lg"
-                            >
-                              <Plus size={16} />
-                            </button>
+                          <div className="relative h-24 w-24 md:h-32 md:w-32 rounded-2xl bg-sindhu-bg-alt/50 border border-dashed border-sindhu-border flex items-center justify-center">
+                            <span className="text-[10px] text-sindhu-text-light/40 uppercase tracking-widest font-bold">No Image</span>
                           </div>
                         )}
+                        
+                        {/* Swiggy-style overlapping button */}
+                        <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 z-10 w-full flex justify-center">
+                          {quantity === 0 ? (
+                            <button
+                              onClick={() => addItem(item)}
+                              className="flex h-9 w-[90px] md:h-10 md:w-[110px] items-center justify-center rounded-lg border border-[#e5e6e6] bg-white font-extrabold text-[#1ba672] shadow-sm uppercase tracking-wider text-[13px] md:text-[15px] hover:shadow-md transition-shadow"
+                            >
+                              ADD
+                            </button>
+                          ) : (
+                            <div className="flex h-9 w-[90px] md:h-10 md:w-[110px] items-center justify-between rounded-lg border border-[#e5e6e6] bg-white text-[#1ba672] shadow-sm font-extrabold text-[13px] md:text-[15px] overflow-hidden">
+                              <button
+                                onClick={() => updateQuantity(item.id, quantity - 1)}
+                                className="flex h-full w-1/3 items-center justify-center bg-white hover:bg-[#1ba672]/10"
+                              >
+                                <Minus size={16} strokeWidth={3} />
+                              </button>
+                              <span className="flex-1 text-center bg-white">{quantity}</span>
+                              <button
+                                onClick={() => updateQuantity(item.id, quantity + 1)}
+                                className="flex h-full w-1/3 items-center justify-center bg-white hover:bg-[#1ba672]/10"
+                              >
+                                <Plus size={16} strokeWidth={3} />
+                              </button>
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    </motion.div>
+                    </div>
                   );
                 })}
               </div>
@@ -194,58 +184,62 @@ export default function SwiggyMenu({ categories }: SwiggyMenuProps) {
           ))}
         </div>
 
-        {/* Right Sidebar - Cart (Sticky) */}
-        <div className="hidden lg:sticky lg:top-24 lg:block lg:w-80">
-          <div className="rounded-2xl border border-sindhu-border bg-white shadow-sm">
-            <div className="p-5 border-b border-sindhu-border">
+        {/* Right Sidebar - Cart (Sticky on PC) */}
+        <div className="hidden lg:sticky lg:top-32 lg:block lg:w-[320px] shrink-0">
+          <div className="rounded-2xl border border-sindhu-border/50 bg-white shadow-[0_8px_30px_rgba(0,0,0,0.04)] overflow-hidden">
+            <div className="px-6 py-5 border-b border-sindhu-border/50">
               <h3 className="text-xl font-bold text-sindhu-text flex items-center gap-2">
-                <ShoppingBag size={20} />
-                Your Cart
+                Cart
+                {lines.length > 0 && <span className="bg-sindhu-terracotta text-white text-[11px] px-2 py-0.5 rounded-full">{lines.length}</span>}
               </h3>
             </div>
             
             {lines.length === 0 ? (
-              <div className="p-8 text-center text-sindhu-text-light/60">
-                <div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-sindhu-bg-alt">
-                  <ShoppingBag size={40} className="text-sindhu-border" />
+              <div className="p-8 text-center flex flex-col items-center">
+                <div className="mb-4 text-sindhu-border">
+                  <ShoppingBag size={64} strokeWidth={1} />
                 </div>
-                <p>Your cart is empty</p>
-                <p className="mt-1 text-sm">Add items from the menu to start an order</p>
+                <h4 className="font-bold text-sindhu-text mb-1">Cart is empty</h4>
+                <p className="text-sm text-sindhu-text-light/60">Good food is always cooking! Go ahead, order some yummy items from the menu.</p>
               </div>
             ) : (
-              <div className="flex flex-col h-[calc(100vh-280px)] max-h-[600px]">
-                <div className="flex-1 overflow-y-auto p-5 space-y-4 scrollbar-none">
+              <div className="flex flex-col h-[calc(100vh-320px)] max-h-[600px]">
+                <div className="flex-1 overflow-y-auto px-6 py-4 space-y-6 scrollbar-none">
                   {lines.map((line) => (
-                    <div key={line.item.id} className="flex justify-between items-start text-sm">
-                      <div className="w-1/2">
-                        <div className="font-medium text-sindhu-text flex items-start gap-1">
-                          <span
-                            className={`mt-1 h-2 w-2 rounded-sm border ${
+                    <div key={line.item.id} className="flex justify-between items-start text-sm gap-2">
+                      <div className="w-3/5 flex flex-col">
+                        <div className="flex items-start gap-2">
+                          <span className={`mt-1 flex h-3 w-3 shrink-0 items-center justify-center rounded-sm border ${
                               line.item.tags?.includes("vegetarian")
-                                ? "border-sindhu-sage bg-sindhu-sage/20"
-                                : "border-red-600 bg-red-100"
-                            } shrink-0`}
-                          />
-                          {line.item.name}
+                                ? "border-sindhu-sage"
+                                : "border-red-600"
+                            }`}>
+                            <span className={`h-1.5 w-1.5 rounded-full ${
+                              line.item.tags?.includes("vegetarian") ? "bg-sindhu-sage" : "bg-red-600"
+                            }`} />
+                          </span>
+                          <span className="font-semibold text-sindhu-text leading-tight">{line.item.name}</span>
                         </div>
+                        <span className="ml-5 mt-1 text-xs text-sindhu-text-light font-medium">₹{line.item.price}</span>
                       </div>
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-7 w-20 items-center justify-between rounded border border-sindhu-border bg-white text-sindhu-sage">
+                      
+                      <div className="flex items-center gap-3 shrink-0">
+                        <div className="flex h-7 w-16 items-center justify-between rounded border border-[#1ba672]/30 bg-white text-[#1ba672]">
                           <button
                             onClick={() => updateQuantity(line.item.id, line.quantity - 1)}
-                            className="flex h-full w-1/3 items-center justify-center hover:bg-sindhu-sage/10 rounded-l"
+                            className="flex h-full w-1/3 items-center justify-center hover:bg-[#1ba672]/10"
                           >
-                            <Minus size={14} />
+                            <Minus size={12} strokeWidth={2.5} />
                           </button>
                           <span className="font-bold text-xs">{line.quantity}</span>
                           <button
                             onClick={() => updateQuantity(line.item.id, line.quantity + 1)}
-                            className="flex h-full w-1/3 items-center justify-center hover:bg-sindhu-sage/10 rounded-r"
+                            className="flex h-full w-1/3 items-center justify-center hover:bg-[#1ba672]/10"
                           >
-                            <Plus size={14} />
+                            <Plus size={12} strokeWidth={2.5} />
                           </button>
                         </div>
-                        <span className="w-12 text-right font-medium text-sindhu-text-light">
+                        <span className="w-10 text-right font-bold text-sindhu-text">
                           ₹{line.item.price * line.quantity}
                         </span>
                       </div>
@@ -253,21 +247,22 @@ export default function SwiggyMenu({ categories }: SwiggyMenuProps) {
                   ))}
                 </div>
                 
-                <div className="border-t border-sindhu-border p-5 bg-sindhu-bg-alt rounded-b-2xl">
-                  <div className="flex justify-between text-sm mb-2 text-sindhu-text-light">
-                    <span>Subtotal</span>
+                <div className="border-t border-sindhu-border/50 p-6 bg-sindhu-bg-alt/30">
+                  <div className="flex justify-between text-sm mb-2 text-sindhu-text-light font-medium">
+                    <span>Item Total</span>
                     <span>₹{total}</span>
                   </div>
-                  <div className="flex justify-between text-sm mb-4 text-sindhu-text-light">
-                    <span>Taxes & Fees</span>
+                  <div className="flex justify-between text-sm mb-4 text-sindhu-text-light font-medium">
+                    <span>Taxes & Charges</span>
                     <span>₹{Math.round(total * 0.05)}</span>
                   </div>
-                  <div className="flex justify-between text-lg font-bold text-sindhu-text mb-6 border-t border-sindhu-border/50 pt-4">
+                  <div className="flex justify-between text-lg font-extrabold text-sindhu-text mb-5 border-t border-dashed border-sindhu-border pt-4">
                     <span>To Pay</span>
                     <span>₹{total + Math.round(total * 0.05)}</span>
                   </div>
-                  <button className="w-full bg-sindhu-terracotta text-white rounded-xl py-3.5 font-bold hover:bg-[#c9633e] transition-colors flex items-center justify-center gap-2">
-                    Checkout <ChevronRight size={18} />
+                  <button className="w-full bg-[#1ba672] text-white rounded-xl py-3.5 font-bold hover:bg-[#158e61] transition-colors flex items-center justify-between px-6 shadow-md shadow-[#1ba672]/20">
+                    <span className="text-sm font-semibold">Checkout</span>
+                    <span className="flex items-center gap-1 text-sm">{total + Math.round(total * 0.05)} <ChevronRight size={16} /></span>
                   </button>
                 </div>
               </div>
@@ -276,16 +271,21 @@ export default function SwiggyMenu({ categories }: SwiggyMenuProps) {
         </div>
       </div>
 
-      {/* Mobile Floating Cart (Sticky Bottom) */}
+      {/* Mobile Floating Cart (Sticky Bottom) - Exact Swiggy Green Bar style */}
       {lines.length > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden border-t border-sindhu-border bg-white p-4 shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
-          <div className="flex items-center justify-between mx-auto max-w-lg">
+        <div className="fixed bottom-4 left-4 right-4 z-50 md:hidden">
+          <div className="flex items-center justify-between rounded-xl bg-[#60B246] px-5 py-3.5 text-white shadow-xl shadow-[#60B246]/30">
             <div className="flex flex-col">
-              <span className="text-xs font-bold text-sindhu-text-light uppercase tracking-wider">{lines.length} Items</span>
-              <span className="text-lg font-bold text-sindhu-text">₹{total}</span>
+              <span className="text-[11px] font-medium tracking-wide opacity-90 uppercase">
+                {lines.length} {lines.length === 1 ? 'ITEM' : 'ITEMS'}
+              </span>
+              <span className="flex items-center gap-2 text-[15px] font-bold">
+                ₹{total + Math.round(total * 0.05)}
+                <span className="text-[10px] font-normal opacity-80 uppercase tracking-widest">Plus Taxes</span>
+              </span>
             </div>
-            <button className="flex items-center gap-2 rounded-xl bg-sindhu-terracotta px-6 py-3 font-bold text-white shadow-lg hover:bg-[#c9633e]">
-              View Cart <ShoppingBag size={18} />
+            <button className="flex items-center gap-1 text-[15px] font-bold tracking-wide">
+              View Cart <ChevronRight size={18} strokeWidth={2.5} />
             </button>
           </div>
         </div>
