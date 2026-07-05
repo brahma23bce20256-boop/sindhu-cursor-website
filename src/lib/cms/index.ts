@@ -1,6 +1,6 @@
 import siteData from "../../../content/site.json";
-import menuData from "../../../content/menu.json";
 import galleryData from "../../../content/gallery.json";
+import { prisma } from "../prisma";
 import type {
   GalleryData,
   MenuCategory,
@@ -34,7 +34,13 @@ export async function getMenu(): Promise<MenuData> {
     const { getMenuFromSanity } = await import("./sanity");
     return getMenuFromSanity();
   }
-  return menuData as MenuData;
+  
+  const categories = await prisma.menuCategory.findMany({
+    include: { items: true },
+    orderBy: { id: 'asc' }
+  });
+
+  return { categories: categories as any[] };
 }
 
 export async function getGallery(): Promise<GalleryData> {
@@ -68,7 +74,7 @@ export function getSiteSettingsSync(): SiteSettings {
 }
 
 export function getMenuSync(): MenuData {
-  return menuData as MenuData;
+  return { categories: [] };
 }
 
 export function getGallerySync(): GalleryData {

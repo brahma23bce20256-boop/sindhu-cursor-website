@@ -4,6 +4,8 @@ import Footer from "@/components/Footer";
 import SwiggyMenu from "@/components/SwiggyMenu";
 import { getSiteSettings } from "@/lib/cms";
 
+export const dynamic = "force-dynamic";
+
 export default async function OrdersPage() {
   const menu = await getMenu();
   const site = await getSiteSettings();
